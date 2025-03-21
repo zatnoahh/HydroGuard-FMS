@@ -12,3 +12,7 @@ Route::get('/', function () {
 
 Route::get('/distance', [DistanceController::class, 'index']);
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
