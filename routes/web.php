@@ -9,9 +9,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::get('/distance', [DistanceController::class, 'index']);
-
+Route::resource('distance', App\Http\Controllers\DistanceController::class);
 
 Auth::routes();
 
