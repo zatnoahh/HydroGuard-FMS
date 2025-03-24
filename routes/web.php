@@ -10,6 +10,7 @@ Route::get('/', function () {
 });
 
 Route::resource('distance', App\Http\Controllers\DistanceController::class);
+Route::resource('reliefCenters', App\Http\Controllers\ReliefCenterController::class);
 
 Auth::routes();
 
