@@ -15,6 +15,8 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <a href="{{ route('distance.index') }}" class="btn btn-primary">Distance</a>
+                    <a href="{{ route('reliefCenters.index') }}" class="btn btn-primary">Relief Centers</a>
                 </div>
             </div>
         </div>
