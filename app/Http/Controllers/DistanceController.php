@@ -62,7 +62,7 @@ class DistanceController extends Controller
     public function update(Request $request, Distance $distance)
     {
         $request->validate([
-            'distance' => 'required|numeric',
+            'value' => 'required|numeric',
         ]);
 
         $distance->update($request->all());
