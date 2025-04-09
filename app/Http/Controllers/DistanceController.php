@@ -14,7 +14,7 @@ class DistanceController extends Controller
     */
     public function index()
     {
-        $distances = Distance::where('value', '>=', 125.00)->paginate(10);
+        $distances = Distance::where('value', '<=', 50.00)->paginate(10);
         return view('distance.index', compact('distances'));
     }
 

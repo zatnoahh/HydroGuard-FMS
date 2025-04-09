@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('distances', function (Blueprint $table) {
             $table->id();
             $table->float('value');
+            // $table->decimal('value', 8, 2); // Precision 8, Scale 2
             $table->timestamps();
         });
     }
