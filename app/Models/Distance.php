@@ -8,5 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Distance extends Model
 {
     use HasFactory;
-    protected $fillable = ['value'];
+    protected $fillable = [
+        'value',
+        'timestamp',
+    ];
 }
