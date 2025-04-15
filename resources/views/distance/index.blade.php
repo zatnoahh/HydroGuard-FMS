@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('content')
 
 <div class="container">
@@ -47,13 +47,22 @@
                                     <td>{{ $distance->created_at->format('d.m.Y') }}</td>
                                     <td>{{ $distance->created_at->format('H:i:s') }}</td>
                                     <td>
-                                        <a href="{{ route('distance.show', $distance->id) }}" class="btn btn-primary">Show</a>
-                                        <a href="{{ route('distance.edit', $distance->id) }}" class="btn btn-primary">Edit</a>
-                                        <form action="{{ route('distance.destroy', $distance->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
+                                        <div class="btn-group dropend">
+                                            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Actions
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="{{ route('distance.show', $distance->id) }}">Show</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('distance.edit', $distance->id) }}">Edit</a></li>
+                                                <li>
+                                                    <form method="POST" action="{{ route('distance.destroy', $distance->id) }}" style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item">Delete</button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

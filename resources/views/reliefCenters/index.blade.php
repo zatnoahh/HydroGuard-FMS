@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('content')
 
 <div class="container">
@@ -20,13 +20,22 @@
                     <td>{{ $reliefCenter->location }}</td>
                     <td>{{ $reliefCenter->capacity }}</td>
                     <td>
-                        <a href="{{ route('reliefCenters.show', $reliefCenter->id) }}" class="btn btn-info">Show</a>
-                        <a href="{{ route('reliefCenters.edit', $reliefCenter->id) }}" class="btn btn-primary">Edit</a>
-                        <form action="{{ route('reliefCenters.destroy', $reliefCenter->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                        <div class="btn-group dropend">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Actions
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('reliefCenters.show', $reliefCenter->id) }}">Show</a></li>
+                                <li><a class="dropdown-item" href="{{ route('reliefCenters.edit', $reliefCenter->id) }}">Edit</a></li>
+                                <li>
+                                    <form method="POST" action="{{ route('reliefCenters.destroy', $reliefCenter->id) }}" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="dropdown-item">Delete</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             @endforeach
