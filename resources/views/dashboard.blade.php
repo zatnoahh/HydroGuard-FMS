@@ -1,67 +1,86 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container">
-    <h1 class="text-2xl font-bold mb-4 text-center">Dashboard</h1>
+<div class="container py-4">
+    <!-- Page Title -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-primary">Dashboard</h1>
+        <p class="text-muted">Overview of Sensor Readings & System Stats</p>
+    </div>
 
-    <div class="row mb-4">
+    <!-- Status Cards -->
+    <div class="row g-4 mb-5">
+        <!-- Latest Distance -->
         <div class="col-md-3">
-            <div class="card text-center shadow-sm">
+            <div class="card text-center border-start border-4 border-primary shadow-sm h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Latest Distance</h5>
-                    <p class="card-text">{{ $latestDistance ?? 'N/A' }} cm</p>
+                    <h6 class="text-muted">Latest Distance</h6>
+                    <h3 class="fw-bold text-primary">{{ $latestDistance ?? 'N/A' }} cm</h3>
                 </div>
             </div>
         </div>
+
+        <!-- Total Distances -->
         <div class="col-md-3">
-            <div class="card text-center shadow-sm">
+            <div class="card text-center border-start border-4 border-info shadow-sm h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Total Distances Saved</h5>
-                    <p class="card-text">{{ $totalDistances }}</p>
+                    <h6 class="text-muted">Total Distances Saved</h6>
+                    <h3 class="fw-bold text-info">{{ $totalDistances }}</h3>
                 </div>
             </div>
         </div>
+
+        <!-- Relief Centers -->
         <div class="col-md-3">
-            <div class="card text-center shadow-sm">
+            <div class="card text-center border-start border-4 border-success shadow-sm h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Relief Centers</h5>
-                    <p class="card-text">{{ $totalCenters }}</p>
+                    <h6 class="text-muted">Relief Centers</h6>
+                    <h3 class="fw-bold text-success">{{ $totalCenters }}</h3>
                 </div>
             </div>
         </div>
+
+        <!-- Safety Guidelines -->
         <div class="col-md-3">
-            <div class="card text-center shadow-sm">
+            <div class="card text-center border-start border-4 border-warning shadow-sm h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Safety Guidelines</h5>
-                    <p class="card-text">{{ $totalGuidelines }}</p>
+                    <h6 class="text-muted">Safety Guidelines</h6>
+                    <h3 class="fw-bold text-warning">{{ $totalGuidelines }}</h3>
                 </div>
             </div>
         </div>
     </div>
 
-    <h3 class="text-xl font-semibold mb-3">Recent Distance Readings</h3>
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Value (cm)</th>
-                    <th>Timestamp</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($recentDistances as $distance)
-                    <tr>
-                        <td>{{ $distance->value }}</td>
-                        <td>{{ $distance->created_at->diffForHumans() }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="2" class="text-center">No recent readings available</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+    <!-- Recent Readings Table -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Recent Distance Readings</h5>
+            <small class="text-white-50">Updated {{ now()->diffForHumans() }}</small>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Distance (cm)</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($recentDistances as $distance)
+                            <tr>
+                                <td><span class="badge bg-danger fs-6">{{ $distance->value }}</span></td>
+                                <td>{{ $distance->created_at->diffForHumans() }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="2" class="text-center text-muted py-4">No recent readings available</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
-
