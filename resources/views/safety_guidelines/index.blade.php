@@ -7,6 +7,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>No</th>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Actions</th>
@@ -15,6 +16,7 @@
         <tbody>
             @foreach($safetyGuidelines as $safetyGuideline)
                 <tr>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $safetyGuideline->title }}</td>
                     <td>{{ $safetyGuideline->description }}</td>
                     <td>
