@@ -30,7 +30,7 @@
               data-accordion="false"
             >
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('dashboard') }}" class="nav-link">
                   <i class="nav-icon bi bi-house"></i>
                   <p>Dashboard</p>
                 </a>
