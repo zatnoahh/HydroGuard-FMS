@@ -40,17 +40,17 @@ Route::post('/distance', function (Request $request) {
     $lastSavedTime = Cache::get('last_saved_time', 0);
     $currentTime = now()->timestamp; // Get current timestamp
 
-    // Save to database only if distance <= 20 and at least 30 sec minute has passed
-    if ($distance <= 20.00 && ($currentTime - $lastSavedTime >= 30)) {
+    // Save to database only if distance >= 150 and at least 1 minute has passed
+    if ($distance >= 150.00 && ($currentTime - $lastSavedTime >= 60)) {
         Distance::create(['value' => $distance]); 
-        Cache::put('last_saved_time', $currentTime, 30); // Update last saved time
+        Cache::put('last_saved_time', $currentTime, 60); // Update last saved time
     }
 
     return response()->json(['message' => 'Distance cached successfully']);
 });
 
 Route::get('/latest-distance', function () {
-    return response()->json(['value' => Cache::get('latest_distance', 'N/A')]);
+    return response()->json(['value' => Cache::get('latest_distance', 'No Data')]);
 });
 
 Route::get('/test', function () {
