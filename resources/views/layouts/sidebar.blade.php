@@ -56,16 +56,6 @@
                     </a>
                   </li>
                 </ul>
-                @can('isAcademician')
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="#" class="nav-link"> 
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Project Involved</p>
-                    </a>
-                  </li>
-                </ul>
-                @endcan
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
