@@ -58,7 +58,7 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('safety_guidelines.index') }}" class="nav-link">
                   <i class="nav-icon bi bi-signpost"></i>
                   <p>Safety Guideline</p>
                 </a>

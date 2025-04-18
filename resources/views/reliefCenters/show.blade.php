@@ -8,7 +8,7 @@
             {{ $reliefCenter->name }}
         </div>
         <div class="card-body">
-            <h5 class="card-title">Location: {{ $reliefCenter->location }}</h5>
+            <p class="card-text">Location: {{ $reliefCenter->location }}</p>
             <p class="card-text">Capacity: {{ $reliefCenter->capacity }}</p>
             <a href="{{ route('reliefCenters.edit', $reliefCenter->id) }}" class="btn btn-primary">Edit</a>
             <form action="{{ route('reliefCenters.destroy', $reliefCenter->id) }}" method="POST" style="display: inline;">
