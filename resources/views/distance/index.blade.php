@@ -45,8 +45,9 @@
                                     <th>ID</th>
                                     <th>Water Level (cm)</th>
                                     <th>Date</th>
+                                    <th>Day</th>
                                     <th>Time</th>
-                                    <th>Action</th>
+                                    <th style="width: 15%;" class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,24 +57,37 @@
                                         <td>{{ $distance->id }}</td>
                                         <td><span class="badge bg-danger fs-6">{{ $distance->value }}</span></td>
                                         <td>{{ $distance->created_at->format('d.m.Y') }}</td>
+                                        <td>{{ $distance->created_at->format('l') }}</td>
                                         <td>{{ $distance->created_at->format('H:i:s') }}</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
-                                                    Actions
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li><a class="dropdown-item" href="{{ route('distance.show', $distance->id) }}">View</a></li>
-                                                    <li><a class="dropdown-item" href="{{ route('distance.edit', $distance->id) }}">Edit</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li>
-                                                        <form method="POST" action="{{ route('distance.destroy', $distance->id) }}" onsubmit="return confirm('Are you sure you want to delete this data?')">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="dropdown-item text-danger">Delete</button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
+                                        <td class="text-center">
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <!-- View Button -->
+                                                <a href="{{ route('distance.show', $distance->id) }}" 
+                                                class="btn btn-primary btn-sm action-btn me-1" 
+                                                title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+                                                <!-- Edit Button
+                                                <a href="{{ route('distance.edit', $distance->id) }}" 
+                                                class="btn btn-primary btn-sm action-btn me-1" 
+                                                title="Edit">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </a> -->
+
+                                                <!-- Delete Button -->
+                                                <form method="POST" 
+                                                    action="{{ route('distance.destroy', $distance->id) }}" 
+                                                    onsubmit="return confirm('Are you sure you want to delete this?')"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" 
+                                                            class="btn btn-danger btn-sm action-btn" 
+                                                            title="Delete">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>

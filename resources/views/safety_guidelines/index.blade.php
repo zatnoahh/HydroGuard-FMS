@@ -19,10 +19,10 @@
             <table class="table table-hover table-striped mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th style="width: 5%;">#</th>
+                        <th style="width: 5%;">No</th>
                         <th style="width: 20%;">Title</th>
                         <th>Description</th>
-                        <th style="width: 15%;">Actions</th>
+                        <th style="width: 15%;" class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,23 +31,35 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $safetyGuideline->title }}</td>
                             <td>{{ $safetyGuideline->description }}</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Actions
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="{{ route('safety_guidelines.show', $safetyGuideline->id) }}">View</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('safety_guidelines.edit', $safetyGuideline->id) }}">Edit</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li>
-                                            <form method="POST" action="{{ route('safety_guidelines.destroy', $safetyGuideline->id) }}" onsubmit="return confirm('Are you sure you want to delete this?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="dropdown-item text-danger">Delete</button>
-                                            </form>
-                                        </li>
-                                    </ul>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <!-- View Button -->
+                                    <a href="{{ route('safety_guidelines.show', $safetyGuideline->id) }}" 
+                                    class="btn btn-primary btn-sm action-btn me-1" 
+                                    title="View">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+
+                                    <!-- Edit Button -->
+                                    <a href="{{ route('safety_guidelines.edit', $safetyGuideline->id) }}" 
+                                    class="btn btn-primary btn-sm action-btn me-1" 
+                                    title="Edit">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+
+                                    <!-- Delete Button -->
+                                    <form method="POST" 
+                                        action="{{ route('safety_guidelines.destroy', $safetyGuideline->id) }}" 
+                                        onsubmit="return confirm('Are you sure you want to delete this?')"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" 
+                                                class="btn btn-danger btn-sm action-btn" 
+                                                title="Delete">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

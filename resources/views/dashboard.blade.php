@@ -15,7 +15,7 @@
             <div class="card text-center border-start border-4 border-primary shadow-sm h-100">
                 <div class="card-body">
                     <h6 class="text-muted">Latest Distance</h6>
-                    <h3 class="fw-bold text-primary">{{ $latestDistance ?? 'N/A' }} cm</h3>
+                    <h3 id="latest-distance" class="fw-bold text-primary">{{ $latestDistance ?? 'N/A' }} cm</h3>
                 </div>
             </div>
         </div>
@@ -83,4 +83,19 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    function fetchLatestDistance() {
+        axios.get('/api/latest-distance')
+            .then(response => {
+                document.getElementById('latest-distance').innerText = response.data.value + ' cm';
+            })
+            .catch(error => console.error('Error fetching latest distance:', error));
+    }
+
+    // Fetch the latest distance every 5 seconds
+    setInterval(fetchLatestDistance, 5000);
+    fetchLatestDistance(); // Fetch immediately on page load
+</script>
 @endsection
