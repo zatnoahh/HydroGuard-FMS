@@ -3,7 +3,7 @@
   <!-- Sidebar Brand -->
   <div class="sidebar-brand text-center py-3">
     <a href="#" class="brand-link d-flex align-items-center justify-content-center">
-      <img src="../../dist/assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image opacity-75 shadow me-2" />
+      <img src="../../dist/assets/img/HFMS-Logo1.png" alt="HFMS Logo" class="brand-image opacity-75 shadow me-2 rounded-circle" />
       <span class="brand-text fw-light fs-5">HFMS</span>
     </a>
   </div>
@@ -25,7 +25,7 @@
         <li class="nav-item">
           <a href="{{ route('distance.index') }}" class="nav-link">
             <i class="nav-icon bi bi-droplet-half"></i>
-            <p>Water Level</p>
+            <p>Flood Alert</p>
           </a>
         </li>
 

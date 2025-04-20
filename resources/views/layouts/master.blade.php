@@ -66,6 +66,9 @@
 
     <!-- Style -->
     <style>
+      body {
+                  background: linear-gradient(to right, #e0f7fa, #e1f5fe);
+              }
         /* Action Buttons */
     .action-btn {
         width: 32px;
