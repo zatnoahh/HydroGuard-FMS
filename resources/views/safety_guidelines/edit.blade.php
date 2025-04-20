@@ -17,6 +17,20 @@
                             <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{ $safetyGuideline->title }}" required>
                             <label for="title"><i class="fas fa-heading me-2"></i>Title</label>
                         </div>
+                        <!-- Category Selection -->
+                        <div class="mb-3">
+                            <label for="category" class="form-label fw-semibold"><i class="fas fa-tags me-1"></i>Category</label>
+                            <select class="form-select" id="category" name="category" required>
+                                <option value="" disabled>Select a category</option>
+                                <option value="Before a Flood" {{ $safetyGuideline->category == 'Before a Flood' ? 'selected' : '' }}>Before a Flood</option>
+                                <option value="During a Flood" {{ $safetyGuideline->category == 'During a Flood' ? 'selected' : '' }}>During a Flood</option>
+                                <option value="After a Flood" {{ $safetyGuideline->category == 'After a Flood' ? 'selected' : '' }}>After a Flood</option>
+                                <option value="Special Consideration" {{ $safetyGuideline->category == 'Special Consideration' ? 'selected' : '' }}>Special Consideration</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a category.
+                            </div>
+                        </div>
 
                         <!-- Description Input -->
                         <div class="mb-3">

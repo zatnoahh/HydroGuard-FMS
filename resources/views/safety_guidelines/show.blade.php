@@ -11,6 +11,7 @@
                 <div class="card-body">
                     <h6 class="text-muted">Details</h6>
                     <p class="card-text"><strong><i class="fas fa-book me-2"></i>Title:</strong> {{ $safetyGuideline->title }}</p>
+                    <p class="card-text"><strong><i class="fas fa-tags me-2"></i>Category:</strong> {{ $safetyGuideline->category }}</p>
                     <p class="card-text"><strong><i class="fas fa-align-left me-2"></i>Description:</strong> {{ $safetyGuideline->description }}</p>
 
                     <div class="d-flex justify-content-between mt-4">

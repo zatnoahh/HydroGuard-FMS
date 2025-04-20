@@ -11,49 +11,54 @@ class SafetyGuidelineSeeder extends Seeder
     public function run()
     {
         DB::table('safety_guidelines')->insert([
-            [
-                'title' => 'Flood Evacuation Procedures',
-                'description' => 'Follow local authorities’ instructions, bring important documents, medication, and basic necessities before moving to the designated relief centers.',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'Electrical Safety During Floods',
-                'description' => 'Switch off the main power supply immediately during a flood. Avoid touching electrical appliances with wet hands or while standing in water.',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'COVID-19 SOP in Relief Centers',
-                'description' => 'Maintain social distancing, wear a mask, and sanitize regularly. Follow all SOPs set by the Ministry of Health during stay at flood shelters.',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'Landslide Risk Awareness',
-                'description' => 'Avoid areas with steep slopes after heavy rain. Report visible cracks or soil movement near your house to local authorities immediately.',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'Safe Driving During Heavy Rain',
-                'description' => 'Drive slowly, turn on headlights, and avoid flooded roads. If visibility is poor, stop at a safe location until the weather improves.',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'Mosquito-Borne Disease Prevention',
-                'description' => 'After floods, remove stagnant water around the house to prevent dengue outbreaks. Use mosquito repellents and nets.',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'Emergency Contact Preparedness',
-                'description' => 'Save emergency numbers like 999, Bomba, and NADMA. Ensure family members know the contacts and have access to them during emergencies.',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+            // Before a Flood
+            ['title' => 'Prepare an emergency kit', 'description' => 'Pack essential supplies such as food, water, flashlights, batteries, a first aid kit, medications, important documents, and personal items. Ensure that the kit is easily accessible and that everyone in the household knows where it is located.', 'category' => 'Before a Flood'],
+            ['title' => 'Know evacuation routes', 'description' => 'Familiarize yourself with the safest and quickest evacuation routes in your area. Identify higher ground or designated shelters where you and your family can go during a flood. Practice evacuation drills with your family to ensure a smooth response during an emergency.', 'category' => 'Before a Flood'],
+            ['title' => 'Raise electrical appliances', 'description' => 'Move all electrical appliances, outlets, and wiring above the expected flood levels. This will help prevent significant damage to electronics and electrical systems, which can also pose a fire hazard during or after a flood.', 'category' => 'Before a Flood'],
+            ['title' => 'Waterproof your basement', 'description' => 'Seal any cracks or gaps in your basement walls, windows, and doors with waterproofing materials. Consider installing sump pumps, check valves, and other flood-resistant systems to reduce water damage and prevent mold growth in your basement.', 'category' => 'Before a Flood'],
+            ['title' => 'Protect important documents', 'description' => 'Store your essential documents such as birth certificates, insurance papers, legal documents, and financial records in waterproof containers or digitally. Consider using cloud storage for digital files to ensure easy access and protection from water damage.', 'category' => 'Before a Flood'],
+            ['title' => 'Secure fuel tanks and outdoor items', 'description' => 'Secure fuel tanks, propane tanks, and outdoor furniture to prevent them from floating away or being swept by floodwaters, which could cause damage or hazardous situations. Consider moving large or heavy items to higher ground before a flood occurs.', 'category' => 'Before a Flood'],
+            ['title' => 'Install plumbing check valves', 'description' => 'Install check valves or backflow preventers on your plumbing systems to prevent floodwater from backing up into your home’s drains and pipes. This helps avoid water damage to your floors, walls, and valuable possessions during a flood event.', 'category' => 'Before a Flood'],
+            ['title' => 'Clear gutters and drains', 'description' => 'Ensure that all gutters, downspouts, and drains are clear of debris such as leaves, branches, and dirt. Proper water flow will reduce the risk of overflow and water buildup, which could result in flooding in your yard or home.', 'category' => 'Before a Flood'],
+            ['title' => 'Move valuables to higher ground', 'description' => 'Relocate your valuable items, electronics, and sentimental belongings to higher floors or areas above the expected flood levels. This reduces the chances of losing irreplaceable items to water damage and helps protect your assets during a flood.', 'category' => 'Before a Flood'],
+            ['title' => 'Practice emergency drills', 'description' => 'Practice evacuation and emergency response drills with your family members. Make sure everyone knows how to access emergency supplies, where to meet if separated, and how to respond to flood alerts. Practicing these steps can save valuable time during an actual emergency.', 'category' => 'Before a Flood'],
+
+            // During a Flood
+            ['title' => 'Evacuate when told to', 'description' => 'Always follow the instructions from local authorities during a flood. Evacuate immediately when advised to do so. Floodwaters can rise quickly and unexpectedly, and staying behind may put your life and the lives of others at risk.', 'category' => 'During a Flood'],
+            ['title' => 'Avoid floodwaters', 'description' => 'Floodwaters can be deeper than they appear, and they may carry hidden hazards like debris, chemicals, and fast-moving currents. Avoid walking or driving through floodwaters, as they can be treacherous and cause injury or death.', 'category' => 'During a Flood'],
+            ['title' => 'Turn off power and gas', 'description' => 'If it is safe to do so, turn off electricity, gas, and water supplies to your home to avoid electrocution, gas leaks, and other hazards. Power outages can also cause water systems to fail, so it is important to be proactive in shutting off these utilities during a flood.', 'category' => 'During a Flood'],
+            ['title' => 'Stay informed', 'description' => 'Keep yourself updated with the latest weather information through reliable sources such as radios, weather apps, or television broadcasts. Emergency notifications can provide critical details about evacuation routes, shelter locations, and the severity of the flood.', 'category' => 'During a Flood'],
+            ['title' => 'Move to higher ground', 'description' => 'During a flood, move to higher ground immediately. If you are in a building, move to the upper floors to avoid being trapped by rising water. Staying in a safe, elevated area reduces the risk of injury and keeps you away from floodwaters.', 'category' => 'During a Flood'],
+            ['title' => 'Carry your emergency kit', 'description' => 'Make sure to carry your emergency kit with you when evacuating. The kit should contain all essential supplies, including medications, food, water, flashlights, batteries, and important documents, to help you manage the emergency until help arrives.', 'category' => 'During a Flood'],
+            ['title' => 'Avoid using elevators', 'description' => 'In the event of flooding, avoid using elevators, as power failures and flooding can cause the elevators to malfunction or trap you inside. Use stairwells to move to higher floors or evacuate to safer areas.', 'category' => 'During a Flood'],
+            ['title' => 'Keep children and pets safe', 'description' => 'Floodwaters pose significant dangers to children and pets. Keep them away from dangerous areas, such as fast-moving waters or electrical hazards, and ensure they are always within your sight during the emergency.', 'category' => 'During a Flood'],
+            ['title' => 'Avoid touching floodwater', 'description' => 'Floodwater can be contaminated with sewage, chemicals, and other harmful substances. Avoid touching or wading through floodwater, as it can cause illness, infection, or injury. Use gloves or protective gear if you must come into contact with floodwater.', 'category' => 'During a Flood'],
+            ['title' => 'Stay away from downed power lines', 'description' => 'Downed power lines can be extremely dangerous and may still be live. Stay at least 30 feet away from any downed lines and report them to local authorities immediately. Do not attempt to move or touch them yourself.', 'category' => 'During a Flood'],
+
+            // After a Flood
+            ['title' => 'Return only when safe', 'description' => 'Do not return home until authorities have declared it is safe. Returning too soon could expose you to hidden dangers such as unstable structures, contaminated water, or hazardous debris. Wait for an official clearance before re-entering your home.', 'category' => 'After a Flood'],
+            ['title' => 'Avoid standing water', 'description' => 'Standing water after a flood can hide dangerous debris, sharp objects, and electrical hazards. It may also be contaminated with sewage, chemicals, or bacteria, posing health risks. Avoid walking through standing water until it is deemed safe.', 'category' => 'After a Flood'],
+            ['title' => 'Take photos for insurance', 'description' => 'Before cleaning up, document any damage caused by the flood. Take clear photographs of structural damage, water levels, and any affected belongings. This documentation will be crucial for insurance claims and any necessary repair processes.', 'category' => 'After a Flood'],
+            ['title' => 'Have power inspected', 'description' => 'Do not turn on the electricity until a licensed electrician inspects your electrical system. Flooding can cause electrical systems to short-circuit, and turning on the power prematurely may result in electrical fires or further damage.', 'category' => 'After a Flood'],
+            ['title' => 'Wear protective gear', 'description' => 'When cleaning up after a flood, wear protective gear such as gloves, rubber boots, masks, and goggles. This gear will help protect you from exposure to harmful chemicals, sewage, sharp objects, and mold spores during cleanup efforts.', 'category' => 'After a Flood'],
+            ['title' => 'Disinfect all surfaces', 'description' => 'Thoroughly clean and disinfect all surfaces that came into contact with floodwater. Use an appropriate disinfectant to kill bacteria, viruses, and mold spores. Pay extra attention to kitchens, bathrooms, and areas where food was stored.', 'category' => 'After a Flood'],
+            ['title' => 'Throw out contaminated items', 'description' => 'Dispose of any food, medicine, or personal items that have been contaminated by floodwater. These items can pose health risks and should not be consumed or used. Ensure proper disposal to avoid further contamination or exposure.', 'category' => 'After a Flood'],
+            ['title' => 'Check for mold', 'description' => 'Mold can begin to grow within 24 to 48 hours after a flood. Inspect your home for signs of mold growth, especially in damp areas like basements and bathrooms. If mold is present, take immediate steps to clean and dry the affected areas to prevent further spread.', 'category' => 'After a Flood'],
+            ['title' => 'Report damage', 'description' => 'Contact local authorities to report any structural damage to your home or property. This will help emergency services and inspectors assess the situation and prioritize areas for further inspection or assistance.', 'category' => 'After a Flood'],
+            ['title' => 'Seek medical attention', 'description' => 'If you or anyone in your household has been injured or exposed to floodwater, seek medical attention immediately. Floodwaters can carry harmful bacteria and chemicals that may cause infections or other health issues.', 'category' => 'After a Flood'],
+
+            // Special Consideration
+            ['title' => 'Plan for elderly or disabled', 'description' => 'Ensure that elderly or disabled family members have a plan for evacuation, transportation, and care during a flood. This may include arranging for special medical needs, mobility aids, and assistance from neighbors or local authorities.', 'category' => 'Special Consideration'],
+            ['title' => 'Pack baby supplies', 'description' => 'Include sufficient supplies for babies in your emergency kit, such as formula, diapers, wipes, bottles, baby food, and medications. These supplies are essential for ensuring your baby’s well-being during a flood or evacuation.', 'category' => 'Special Consideration'],
+            ['title' => 'Include pets in plans', 'description' => 'Pets should also have an emergency plan in place. Prepare for their safety by including pet food, water, leashes, carriers, and medical records in your emergency kit. Know where pet-friendly shelters or veterinary facilities are located in case of evacuation.', 'category' => 'Special Consideration'],
+            ['title' => 'Know how to shut off utilities', 'description' => 'Learn how to safely turn off your gas, water, and electricity in the event of a flood. Shutting off utilities can prevent fires, leaks, and other hazards once floodwaters start to rise or after they recede.', 'category' => 'Special Consideration'],
+            ['title' => 'Bring extra batteries', 'description' => 'In case of power outages, pack extra batteries for flashlights, radios, and other essential devices in your emergency kit. Consider having a portable charger or power bank to keep your mobile phones charged for emergency communication.', 'category' => 'Special Consideration'],
+            ['title' => 'Stay alert to warnings', 'description' => 'Stay informed of current weather warnings and evacuation orders by setting up alerts on your phone or through a weather app. Promptly follow instructions from authorities to ensure your safety and the safety of your loved ones.', 'category' => 'Special Consideration'],
+            ['title' => 'Set backup communication plans', 'description' => 'In case phones and regular communication methods fail, have a backup plan to stay in touch with family members or neighbors. This may include pre-arranged meeting points, or using walkie-talkies or social media for communication.', 'category' => 'Special Consideration'],
+            ['title' => 'Learn basic first aid', 'description' => 'Knowing basic first aid and CPR can save lives during a flood emergency. Take a first aid course and keep a first aid kit on hand, so you’re prepared to assist others in case of injury or medical emergency.', 'category' => 'Special Consideration'],
+            ['title' => 'Keep emergency contacts handy', 'description' => 'Keep a list of emergency contacts, including family members, local authorities, and medical providers, in an easily accessible place. This ensures you can quickly reach the right people in case of an emergency, even if phones or electricity are down.', 'category' => 'Special Consideration'],
+            ['title' => 'Use sandbags to block water', 'description' => 'In areas prone to flooding, using sandbags to block water from entering your home can be an effective temporary solution. Place sandbags around doorways, windows, and vents to divert water away from critical areas and reduce flood damage.', 'category' => 'Special Consideration'],
+        ]);         
     }
 }
 

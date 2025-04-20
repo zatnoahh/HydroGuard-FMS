@@ -23,6 +23,8 @@
                         <th>Name</th>
                         <th>Location</th>
                         <th>Capacity</th>
+                        <th>Services</th>
+                        <th>Contact</th>
                         <th style="width: 15%;" class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -33,6 +35,8 @@
                             <td>{{ $reliefCenter->name }}</td>
                             <td>{{ $reliefCenter->location }}</td>
                             <td>{{ $reliefCenter->capacity }}</td>
+                            <td>{{ $reliefCenter->service }}</td>
+                            <td>{{ $reliefCenter->contact_info }}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-2">
                                     <!-- View Button -->

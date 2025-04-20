@@ -15,6 +15,20 @@
                             <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
                             <label for="title"><i class="fas fa-heading me-2"></i>Title</label>
                         </div>
+                        <!-- Category Selection -->
+                        <div class="mb-3">
+                            <label for="category" class="form-label fw-semibold"><i class="fas fa-tags me-1"></i>Category</label>
+                            <select class="form-select" id="category" name="category" required>
+                                <option value="" disabled selected>Select a category</option>
+                                <option value="Before a Flood">Before a Flood</option>
+                                <option value="During a Flood">During a Flood</option>
+                                <option value="After a Flood">After a Flood</option>
+                                <option value="Special Consideration">Special Consideration</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a category.
+                            </div>
+                        </div>
                         <!-- Description Input -->
                         <div class="mb-3">
                             <label for="description" class="form-label fw-semibold"><i class="fas fa-align-left me-1"></i>Description</label>

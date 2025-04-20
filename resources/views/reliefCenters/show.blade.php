@@ -12,6 +12,8 @@
                     <h6 class="text-muted">Details</h6>
                     <p class="card-text"><strong><i class="fas fa-map-marker-alt me-2"></i>Location:</strong> {{ $reliefCenter->location }}</p>
                     <p class="card-text"><strong><i class="fas fa-users me-2"></i>Capacity:</strong> {{ $reliefCenter->capacity }}</p>
+                    <p class="card-text"><strong><i class="fas fa-concierge-bell me-2"></i>Service Provided:</strong> {{ $reliefCenter->service }}</p>
+                    <p class="card-text"><strong><i class="fas fa-info-circle me-2"></i>Contact Information:</strong> {{ $reliefCenter->contact_info }}</p>
 
                     <div class="d-flex justify-content-between mt-4">
                         <a href="{{ route('reliefCenters.index') }}" class="btn btn-secondary">

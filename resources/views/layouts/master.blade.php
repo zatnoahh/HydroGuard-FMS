@@ -101,43 +101,62 @@
         background-color: #d32f2f;
         border-color: #d32f2f;
     }
+
+
+       html, body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          overflow-x: hidden;
+          scroll-behavior: smooth;
+      }
+
+      .wrapper {
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          overflow-x: hidden;
+      }
+
+      .content-wrapper {
+          flex: 1 0 auto;
+      }
+
+      footer {
+          flex-shrink: 0;
+      }
+
+
   </style>
 
   </head>
   <!--end::Head-->
 
     <!--begin::Body-->
-    <body class="layout-fixed sidebar-expand-lg sidebar-mini sidebar-collapse bg-body-tertiary">
-
-    <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-
+  <body class="layout-fixed sidebar-expand-lg sidebar-mini sidebar-collapse bg-body-tertiary">
     <!--begin::App Wrapper-->
     <div class="app-wrapper">
-
         <!--begin::Header-->   
         <!-- Navbar Section -->
         @include('layouts.header')
-
-
+        <!--end::Header-->
 
         <!-- Sidebar Section -->
         @include('layouts.sidebar')
+        <!-- Sidebar Section -->
 
         <!-- Content Wrapper Section -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            
-            
+        <div class="content-wrapper"> 
             <!-- Main content Section -->
-
             <section class="content">
               @yield('content') <!-- This is where page-specific content will be injected -->
             </section>
-
         </div>
+        <!-- Content Wrapper Section -->
   
         <!-- Footer Section -->
         @include('layouts.footer')
+        <!-- Footer Section -->
 
     </div>
 

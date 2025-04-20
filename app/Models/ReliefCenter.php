@@ -9,5 +9,5 @@ class ReliefCenter extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'location', 'capacity'];
+    protected $fillable = ['name', 'location', 'capacity', 'service', 'contact_info'];
 }

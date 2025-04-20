@@ -22,7 +22,16 @@
                         <div class="form-floating mb-4">
                             <input type="number" class="form-control" id="capacity" name="capacity" placeholder="Capacity" required>
                             <label for="capacity"><i class="fas fa-users me-2"></i>Capacity</label>
+                        </div>                        
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="service" name="service" placeholder="Service Provided" required>
+                            <label for="service"><i class="fas fa-concierge-bell me-2"></i>Service Provided</label>
                         </div>
+                        <div class="form-floating mb-4">
+                            <textarea class="form-control" id="contact_info" name="contact_info" placeholder="Additional Contact Information" style="height: 100px;" required></textarea>
+                            <label for="contact_info"><i class="fas fa-info-circle me-2"></i>Additional Contact Information</label>
+                        </div>
+                        
                         <div class="d-flex justify-content-between">
                             <a href="{{ route('reliefCenters.index') }}" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left"></i> Cancel

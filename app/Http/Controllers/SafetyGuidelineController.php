@@ -10,9 +10,23 @@ class SafetyGuidelineController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $safetyGuidelines = SafetyGuideline::all();
+        $query = SafetyGuideline::query();
+        
+        if ($request->has('category') && $request->category) {
+            $query->where('category', $request->category);
+        }
+        
+        if ($request->has('search') && $request->search) {
+            $query->where(function($q) use ($request) {
+                $q->where('title', 'like', '%'.$request->search.'%')
+                ->orWhere('description', 'like', '%'.$request->search.'%');
+            });
+        }
+        
+        $safetyGuidelines = $query->paginate(10);
+        
         return view('safety_guidelines.index', compact('safetyGuidelines'));
     }
 
