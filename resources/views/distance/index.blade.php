@@ -44,8 +44,8 @@
                                     <th>No</th>
                                     <th>ID</th>
                                     <th>Water Level (cm)</th>
-                                    <th>Date</th>
                                     <th>Day</th>
+                                    <th>Date</th>
                                     <th>Time</th>
                                     <th style="width: 15%;" class="text-center">Actions</th>
                                 </tr>
@@ -56,8 +56,8 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $distance->id }}</td>
                                         <td><span class="badge bg-danger fs-6">{{ $distance->value }}</span></td>
-                                        <td>{{ $distance->created_at->format('d.m.Y') }}</td>
                                         <td>{{ $distance->created_at->format('l') }}</td>
+                                        <td>{{ $distance->created_at->format('d.m.Y') }}</td>
                                         <td>{{ $distance->created_at->format('H:i:s') }}</td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center gap-2">

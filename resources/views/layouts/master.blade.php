@@ -66,9 +66,13 @@
 
     <!-- Style -->
     <style>
-      body {
+      /* body {
                   background: linear-gradient(to right, #e0f7fa, #e1f5fe);
-              }
+              } */
+              body {
+            background: url('../../dist/assets/img/background.png') no-repeat center center fixed;
+            background-size: cover;
+        }
         /* Action Buttons */
     .action-btn {
         width: 32px;
@@ -103,7 +107,7 @@
     }
 
 
-       html, body {
+       /* html, body {
           margin: 0;
           padding: 0;
           height: 100%;
@@ -116,14 +120,23 @@
           display: flex;
           flex-direction: column;
           overflow-x: hidden;
-      }
+      } */
 
-      .content-wrapper {
+      /* .content-wrapper {
           flex: 1 0 auto;
       }
 
       footer {
           flex-shrink: 0;
+      } */
+
+      .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1030;
+        background-color: #fff; /* Set background color */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
       }
 
 
@@ -424,6 +437,37 @@
 
     <!-- Optional: Include the Popper.js library for Bootstrap 4 dropdowns -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+
+    <!-- <script>
+      // Show spinner on page change
+      document.addEventListener('DOMContentLoaded', function () {
+        const spinner = document.createElement('div');
+        spinner.id = 'loading-spinner';
+        spinner.style.position = 'fixed';
+        spinner.style.top = '50%';
+        spinner.style.left = '50%';
+        spinner.style.transform = 'translate(-50%, -50%)';
+        spinner.style.zIndex = '9999';
+        spinner.style.display = 'none';
+        spinner.innerHTML = `
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        `;
+        document.body.appendChild(spinner);
+
+        const showSpinner = () => {
+          spinner.style.display = 'block';
+        };
+
+        const hideSpinner = () => {
+          spinner.style.display = 'none';
+        };
+
+        window.addEventListener('beforeunload', showSpinner);
+        window.addEventListener('load', hideSpinner);
+      });
+    </script> -->
 
 </body>
 
