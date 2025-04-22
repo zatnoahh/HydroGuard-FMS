@@ -70,7 +70,7 @@
                   background: linear-gradient(to right, #e0f7fa, #e1f5fe);
               } */
               body {
-            background: url('../../dist/assets/img/background.png') no-repeat center center fixed;
+            background: url('../../dist/background.png') no-repeat center center fixed;
             background-size: cover;
         }
         /* Action Buttons */
