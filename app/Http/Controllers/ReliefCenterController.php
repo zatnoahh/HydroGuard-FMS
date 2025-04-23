@@ -10,9 +10,19 @@ class ReliefCenterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $reliefCenters = ReliefCenter::all();
+        $query = ReliefCenter::query();
+        //Search functionality
+        $search = request()->query('search');
+        if ($search) {
+            $reliefCenters = ReliefCenter::where('name', 'like', '%' . $search . '%')
+                ->orWhere('location', 'like', '%' . $search . '%')
+                ->paginate(10);
+        } else {
+            $reliefCenters = ReliefCenter::paginate(10);
+        }
+
         return view('reliefCenters.index', compact('reliefCenters'));
     }
 

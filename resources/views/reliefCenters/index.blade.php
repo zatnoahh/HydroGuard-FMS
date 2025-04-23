@@ -13,6 +13,98 @@
         </a>
     </div>
 
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col ms-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Centers</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($reliefCenters) }}</div>
+                        </div>
+                        <div class="col-auto me-2">
+                            <i class="fas fa-building fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col ms-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Capacity</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $reliefCenters->sum('capacity') }}</div>
+                        </div>
+                        <div class="col-auto me-2">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col ms-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Average Capacity</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ round($reliefCenters->avg('capacity'), 1) }}</div>
+                        </div>
+                        <div class="col-auto me-2">
+                            <i class="fas fa-chart-bar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                <div class="col ms-2">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                    Centers with High Capacity</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                    {{ $reliefCenters->where('capacity', '>', 100)->count() }}
+                    </div>
+                </div>
+                <div class="col-auto me-2">
+                    <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-2 mb-md-0">
+                    <h5 class="mb-0">Relief Centers</h5>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-end">
+                        <!-- Search Box -->
+                        <form method="GET" class="ms-2">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control form-control-sm" placeholder="Search..." value="{{ request('search') }}">
+                                <button class="btn btn-primary btn-sm" type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Table Section -->
     <div class="card shadow-sm">
         <div class="card-body p-0">
@@ -32,7 +124,11 @@
                     @forelse($reliefCenters as $reliefCenter)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $reliefCenter->name }}</td>
+                            <td>
+                                <a href="{{ route('reliefCenters.show', $reliefCenter->id) }}" class="font-weight-bold text-dark">
+                                    {{ $reliefCenter->name }}
+                                </a>
+                            </td>
                             <td>{{ $reliefCenter->location }}</td>
                             <td>{{ $reliefCenter->capacity }}</td>
                             <td>{{ $reliefCenter->service }}</td>

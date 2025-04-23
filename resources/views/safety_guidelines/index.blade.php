@@ -14,46 +14,46 @@
     </div>
 
     <!-- Filter Section -->
-<div class="card shadow-sm mb-3">
-    <div class="card-body">
-        <div class="row align-items-center">
-            <div class="col-md-6 mb-2 mb-md-0">
-                <h5 class="mb-0">Safety Guidelines</h5>
-            </div>
-            <div class="col-md-6">
-                <div class="d-flex justify-content-end">
-                    <!-- Category Filter Dropdown -->
-                    <div class="dropdown me-2">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="categoryFilter" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-filter me-1"></i>
-                            @if(request('category'))
-                                {{ ucfirst(request('category')) }}
-                            @else
-                                All Categories
-                            @endif
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="categoryFilter">
-                            <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['category' => null]) }}">All Categories</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['category' => 'before a flood']) }}">Before a Flood</a></li>
-                            <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['category' => 'during a flood']) }}">During a Flood</a></li>
-                            <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['category' => 'after a flood']) }}">After a Flood</a></li>
-                            <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['category' => 'special consideration']) }}">Special Consideration</a></li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Search Box -->
-                    <form method="GET" class="ms-2">
-                        <div class="input-group">
-                            <input type="text" name="search" class="form-control form-control-sm" placeholder="Search..." value="{{ request('search') }}">
-                            <button class="btn btn-primary btn-sm" type="submit"><i class="fas fa-search"></i></button>
+    <div class="card shadow-sm mb-3">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-2 mb-md-0">
+                    <h5 class="mb-0">Safety Guidelines</h5>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-end">
+                        <!-- Category Filter Dropdown -->
+                        <div class="dropdown me-2">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="categoryFilter" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-filter me-1"></i>
+                                @if(request('category'))
+                                    {{ ucfirst(request('category')) }}
+                                @else
+                                    All Categories
+                                @endif
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="categoryFilter">
+                                <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['category' => null]) }}">All Categories</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['category' => 'before a flood']) }}">Before a Flood</a></li>
+                                <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['category' => 'during a flood']) }}">During a Flood</a></li>
+                                <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['category' => 'after a flood']) }}">After a Flood</a></li>
+                                <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['category' => 'special consideration']) }}">Special Consideration</a></li>
+                            </ul>
                         </div>
-                    </form>
+                        
+                        <!-- Search Box -->
+                        <form method="GET" class="ms-2">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control form-control-sm" placeholder="Search..." value="{{ request('search') }}">
+                                <button class="btn btn-primary btn-sm" type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 <!-- Table Section -->
 <div class="card shadow-sm">
