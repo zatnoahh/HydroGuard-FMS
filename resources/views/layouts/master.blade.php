@@ -106,40 +106,33 @@
         border-color: #d32f2f;
     }
 
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1030;
+      background-color: #fff; /* Set background color */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
+    }
 
-       /* html, body {
-          margin: 0;
-          padding: 0;
-          height: 100%;
-          overflow-x: hidden;
-          scroll-behavior: smooth;
+    .bg-orange {
+        background-color: #fd7e14 !important; /* Bootstrap's orange shade */
+    }
+
+    .card {
+        border-radius: 0.5rem;
+        border: none;
       }
-
-      .wrapper {
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          overflow-x: hidden;
-      } */
-
-      /* .content-wrapper {
-          flex: 1 0 auto;
-      }
-
-      footer {
-          flex-shrink: 0;
-      } */
-
-      .header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1030;
-        background-color: #fff; /* Set background color */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
-      }
-
-
+    .card-header {
+        border-bottom: none;
+    }
+    .bg-gradient-danger {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    }
+    .bg-orange {
+        background-color: #fd7e14;
+    }
+    
   </style>
 
   </head>
