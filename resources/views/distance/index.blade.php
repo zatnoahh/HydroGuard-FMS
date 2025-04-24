@@ -17,11 +17,14 @@
                     <i class="bi bi-water me-3 fs-4 animate-pulse"></i>
                     <h5 class="mb-0 fw-semibold">Water Level Reading</h5>
                 </div>
-                <div class="badge bg-white text-primary rounded-pill px-3 py-2">
-                    <span class="pulse-dot bg-success me-1"></span>
-                    <span id="connection-status">Connected</span>
+                <div class="d-flex align-items-center">
+                    <div class="badge bg-white text-primary rounded-pill px-3 py-2 me-3">
+                        <span class="pulse-dot bg-success me-1"></span>
+                        <span id="connection-status">Connected</span>
+                    </div>                    
                 </div>
             </div>
+            
 
             <div class="card-body p-4">
                 <div class="row align-items-center">
@@ -61,7 +64,12 @@
                     <!-- Threshold Information & History -->
                     <div class="col-md-6">
                         <div class="bg-light rounded-3 p-4 h-100">
-                            <h6 class="text-uppercase text-muted mb-3 small fw-bold">Threshold Levels</h6>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="text-uppercase text-muted small fw-bold">Threshold Levels</h6>
+                                <a href="{{ route('threshold.index') }}" class="btn btn-primary btn-sm text-white">
+                                    <i class="bi bi-gear me-1"></i> Manage Thresholds
+                                </a>
+                            </div>
                             
                             <div class="threshold-levels mb-4">
                                 <div class="threshold-item danger-item mb-2">
@@ -105,7 +113,7 @@
                             </div>
                             
                             <div class="update-frequency small text-muted">
-                                <i class="bi bi-arrow-repeat me-1"></i> Updating every 2 seconds
+                                <i class="bi bi-exclamation-triangle me-1"></i> Active monitoring
                             </div>
                         </div>
                     </div>

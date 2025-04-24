@@ -1,15 +1,4 @@
 <!--begin::Header-->
-<!-- <style>
-    .app-header {
-      background-color: #fff; /* Set background color */
-      border-bottom: 1px solid #dee2e6;
-      position: fixed;
-      /* top: 0; */
-      width: 95%;
-      /* z-index: 1030; */
-    }
-    
-    </style> -->
     <nav class="app-header navbar navbar-expand bg-body">
         <!--begin::Container-->
         <div class="container-fluid">

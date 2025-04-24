@@ -45,6 +45,14 @@
           </a>
         </li>
 
+        <!-- Manage Threshold -->
+        <li class="nav-item">
+          <a href="{{ route('threshold.index') }}" class="nav-link">
+            <i class="nav-icon bi bi-sliders"></i>
+            <p>Manage Threshold</p>
+          </a>
+        </li>
+
         <!-- Admin Only -->
         @can('isAdmin')
         <li class="nav-item">

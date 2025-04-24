@@ -9,5 +9,5 @@ class Threshold extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['status', 'value', 'created_at', 'updated_at'];
+    protected $fillable = ['status', 'value'];
 }

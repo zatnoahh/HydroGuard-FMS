@@ -14,6 +14,7 @@ Route::get('/', function () {
 Route::resource('distance', App\Http\Controllers\DistanceController::class);
 Route::resource('reliefCenters', App\Http\Controllers\ReliefCenterController::class);
 Route::resource('safety_guidelines', App\Http\Controllers\SafetyGuidelineController::class);
+Route::resource('threshold', App\Http\Controllers\ThresholdController::class);
 
 Auth::routes();
 

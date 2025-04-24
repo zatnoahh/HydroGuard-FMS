@@ -27,6 +27,7 @@
                             <input type="number" class="form-control" id="capacity" name="capacity" placeholder="Capacity" value="{{ $reliefCenter->capacity }}" required>
                             <label for="capacity"><i class="fas fa-users me-2"></i>Capacity</label>
                         </div>
+
                         <div class="form-floating mb-4">
                             <input type="text" class="form-control" id="service" name="service" placeholder="Service" value="{{ $reliefCenter->service }}" required>
                             <label for="service"><i class="fas fa-concierge-bell me-2"></i>Service</label>

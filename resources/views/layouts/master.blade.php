@@ -332,14 +332,17 @@
         background-color: #6c757d;
         border-radius: 0 0 8px 8px;
     } */
+
+    
     
   </style>
 
   </head>
   <!--end::Head-->
-
+  
     <!--begin::Body-->
-  <body class="layout-fixed sidebar-expand-lg sidebar-mini sidebar-collapse bg-body-tertiary">
+    
+    <body class="layout-fixed sidebar-expand-lg sidebar-mini sidebar-collapse bg-body-tertiary">
     <!--begin::App Wrapper-->
     <div class="app-wrapper">
         <!--begin::Header-->   
