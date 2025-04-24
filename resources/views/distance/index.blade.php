@@ -205,7 +205,7 @@
                 <h5 class="mb-0">Danger Level History</h5>
             </div>
 
-            <div class="card-body p-0">
+    <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover table-striped align-middle mb-0">
                         <thead class="table-light sticky-top">

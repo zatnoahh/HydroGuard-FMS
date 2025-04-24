@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Threshold;
+use App\Models\Distance;
 use Illuminate\Http\Request;
 
 class ThresholdController extends Controller
@@ -10,26 +11,44 @@ class ThresholdController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $thresholds = Threshold::all();
-    
-        // Sort by custom priority
+
+        // Sort thresholds by custom priority
         $statusPriority = ['danger' => 1, 'alert' => 2, 'warning' => 3];
-    
+
         $thresholds = $thresholds->sortBy(function ($item) use ($statusPriority) {
             return $statusPriority[$item->status] ?? 999;
-        })->values(); // Reset collection keys after sort
-    
+        })->values();
+
         $thresholdValues = [
             'danger' => optional($thresholds->firstWhere('status', 'danger'))->value,
             'alert' => optional($thresholds->firstWhere('status', 'alert'))->value,
             'warning' => optional($thresholds->firstWhere('status', 'warning'))->value,
         ];
-    
-        return view('threshold.index', compact('thresholds', 'thresholdValues'));
+
+        // ✅ Fetch and filter distance data
+        $query = Distance::query();
+
+        // Filter by status (if provided)
+        if ($request->has('status') && $request->status !== null) {
+            $query->where('status', $request->status);
+        }
+
+        // Search by water level value
+        if ($request->has('search') && $request->search !== null) {
+            $query->where('value', 'like', '%' . $request->search . '%');
+        }
+
+        // Optional: Only get "danger", "alert", "warning" statuses
+        $query->whereIn('status', ['danger', 'alert', 'warning']);
+
+        $distances = $query->latest()->paginate(10);
+
+        return view('threshold.index', compact('thresholds', 'thresholdValues', 'distances'));
     }
-    
+        
 
 
     /**
