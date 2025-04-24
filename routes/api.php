@@ -56,7 +56,7 @@ Route::post('/distance', function (Request $request) {
 
 
 Route::get('/latest-distance', function () {
-    return response()->json(['value' => Cache::get('latest_distance', 'No Data')]);
+    return response()->json(['value' => Cache::get('latest_distance', '--')]);
 });
 
 Route::get('/test', function () {

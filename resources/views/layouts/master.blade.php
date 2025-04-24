@@ -132,6 +132,206 @@
     .bg-orange {
         background-color: #fd7e14;
     }
+
+    /* Alert styel */
+    /* Card Styling */
+    .card {
+        border-radius: 0.75rem;
+        border: none;
+    }
+    .card-header {
+        border-bottom: none;
+    }
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
+    }
+    
+    /* Water Level Gauge */
+    .water-level-gauge {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        background-color: #f8f9fa;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        border: 8px solid #e9ecef;
+    }
+    .gauge-body {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    .gauge-fill {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #0d6efd;
+        transition: height 0.5s ease, background-color 0.5s ease;
+    }
+    .safe-fill { background-color: #198754; }
+    .warning-fill { background-color: #0dcaf0; }
+    .alert-fill { background-color: #ffc107; }
+    .danger-fill { background-color: #dc3545; }
+    .gauge-value {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        color: #212529;
+    }
+    .gauge-threshold-markers {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+    }
+    .threshold-marker {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: rgba(0,0,0,0.7);
+    }
+    .warning-marker { background-color: #0dcaf0; }
+    .alert-marker { background-color: #ffc107; }
+    .danger-marker { background-color: #dc3545; }
+    
+    /* Connection Status */
+    .pulse-dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.3; }
+        100% { opacity: 1; }
+    }
+    
+    /* Threshold Items */
+    .threshold-dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+    
+    /* Animations */
+    .animate-pulse {
+        animation: pulse 2s infinite;
+    }
+
+    /* Sensor Visualization Styles
+    .sensor-visualization {
+        height: 100%;
+        width: 100%;
+        position: relative;
+    }
+    
+    .sensor-housing {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+    }
+    
+    .sensor-unit {
+        height: 36px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .measurement-tube {
+        height: calc(100% - 40px);
+        width: 60px;
+        background-color: #f8f9fa;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+        margin-top: 40px;
+        box-shadow: inset 0 0 8px rgba(0,0,0,0.1);
+    }
+    
+    .air-space {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(13, 110, 253, 0.1);
+        transition: height 0.5s ease;
+    }
+    
+    .water-level {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #0d6efd;
+        transition: height 0.5s ease, background-color 0.5s ease;
+    }
+    
+    .safe-fill { background-color: #198754; }
+    .warning-fill { background-color: #0dcaf0; }
+    .alert-fill { background-color: #ffc107; }
+    .danger-fill { background-color: #dc3545; }
+    
+    .measurement-markers {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+    }
+    
+    .marker {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: rgba(0,0,0,0.7);
+    }
+    
+    .warning-marker { background-color: #0dcaf0; }
+    .alert-marker { background-color: #ffc107; }
+    .danger-marker { background-color: #dc3545; }
+    
+    .measurement-scale {
+        position: absolute;
+        right: -30px;
+        top: 0;
+        bottom: 0;
+        width: 25px;
+    }
+    
+    .scale-mark {
+        position: absolute;
+        right: 0;
+        transform: translateY(-50%);
+        font-size: 0.65rem;
+        color: #6c757d;
+    }
+    
+    .ground-level {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 10px;
+        background-color: #6c757d;
+        border-radius: 0 0 8px 8px;
+    } */
     
   </style>
 

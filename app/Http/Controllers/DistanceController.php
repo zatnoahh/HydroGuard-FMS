@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Distance;
+use App\Models\Threshold;
 
 class DistanceController extends Controller
 {   
@@ -15,7 +16,8 @@ class DistanceController extends Controller
     public function index()
     {
         $distances = Distance::where('value', '<=', 50.00)->paginate(10);
-        return view('distance.index', compact('distances'));
+        $thresholds = Threshold::pluck('value', 'status'); // Fetch thresholds as ['status' => 'value']
+        return view('distance.index', compact('distances', 'thresholds'));
     }
 
     /**
