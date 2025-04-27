@@ -30,6 +30,29 @@ class SafetyGuidelineController extends Controller
         return view('safety_guidelines.index', compact('safetyGuidelines'));
     }
 
+        /**
+     * Show the form for creating a new resource.
+     */
+    public function userIndex(Request $request)
+    {
+        $query = SafetyGuideline::query();
+        
+        if ($request->has('category') && $request->category) {
+            $query->where('category', $request->category);
+        }
+        
+        if ($request->has('search') && $request->search) {
+            $query->where(function($q) use ($request) {
+                $q->where('title', 'like', '%'.$request->search.'%')
+                ->orWhere('description', 'like', '%'.$request->search.'%');
+            });
+        }
+        
+        $safetyGuidelines = $query->paginate(10);
+
+        return view('user.safety_guidelines.index', compact('safetyGuidelines'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
