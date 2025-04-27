@@ -53,6 +53,14 @@
           </a>
         </li>
 
+          <!-- User Safety Guidelines -->
+        <li class="nav-item">
+          <a href="{{ route('user.safety_guidelines.index') }}" class="nav-link">
+            <i class="nav-icon bi bi-signpost"></i>
+            <p>User Safety Guidelines</p>
+          </a>
+        </li>
+
         <!-- Admin Only -->
         @can('isAdmin')
         <li class="nav-item">
