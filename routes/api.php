@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\DistanceController;
-
+use App\Notifications\AlertNotification;
+use Illuminate\Support\Facades\Notification;
 use App\Models\Distance;
 use App\Models\Threshold;
 
@@ -47,6 +48,12 @@ Route::post('/distance', function (Request $request) {
                 'status' => $status
             ]);
             Cache::put('last_saved_time', $currentTime, 60);
+        }
+
+        // ✉️ Send email if ALERT
+        if ($status === 'alert') {
+            Notification::route('mail', 'syahmiizzat550@gmail.com') // Who will receive the email
+                ->notify(new AlertNotification($distance));
         }
     }
 
