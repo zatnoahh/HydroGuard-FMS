@@ -6,6 +6,8 @@ use App\Http\Controllers\ReliefCenterController;
 use App\Http\Controllers\SafetyGuidelineController;
 use App\Notifications\AlertNotification;
 use Illuminate\Support\Facades\Notification;
+use App\Mail\AlertEmail;
+use Illuminate\Support\Facades\Mail;
 
 
 
@@ -25,11 +27,19 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
+// Route::get('/test-alert-email', function () {
+//     $fakeDistance = 35; // Assume water level = 35 cm (example)
+
+//     Notification::route('mail', 'syahmiizzat550@gmail.com')
+//         ->notify(new AlertNotification($fakeDistance));
+
+//     return 'Test Alert Email Sent!';
+// });
+
 Route::get('/test-alert-email', function () {
-    $fakeDistance = 35; // Assume water level = 35 cm (example)
+    $testDistance = 35; // Example distance value
 
-    Notification::route('mail', 'syahmiizzat550@gmail.com')
-        ->notify(new AlertNotification($fakeDistance));
+    Mail::to('syahmiizzat550@gmail.com')->send(new AlertEmail($testDistance));
 
-    return 'Test Alert Email Sent!';
+    return "Test Alert Email Sent!";
 });

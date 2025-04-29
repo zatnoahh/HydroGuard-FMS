@@ -8,6 +8,8 @@ use App\Notifications\AlertNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Models\Distance;
 use App\Models\Threshold;
+use Illuminate\Support\Facades\Mail; // Add this at the top if not added
+use App\Mail\AlertEmail; // Import your new AlertEmail class
 
 
 Route::get('/user', function (Request $request) {
@@ -41,24 +43,35 @@ Route::post('/distance', function (Request $request) {
         $lastSavedTime = Cache::get('last_saved_time', 0);
         $currentTime = now()->timestamp;
 
-        // Check if 60 seconds have passed since the last save = can be change
-        if ($currentTime - $lastSavedTime >= 60) {// 60 second before saved new data to table
-            Distance::create([
+        if ($currentTime - $lastSavedTime >= 60) {
+            // 👉 Save distance to DB
+            $saved = Distance::create([
                 'value' => $distance,
                 'status' => $status
             ]);
-            Cache::put('last_saved_time', $currentTime, 60);
-        }
 
-        // ✉️ Send email if ALERT
-        if ($status === 'alert') {
-            Notification::route('mail', 'syahmiizzat550@gmail.com') // Who will receive the email
-                ->notify(new AlertNotification($distance));
+            Cache::put('last_saved_time', $currentTime, 60);
+
+            // 👉 If status is 'alert' and save success, send email (only once until status change)
+            if ($saved && $status === 'alert') {
+                $lastStatus = Cache::get('last_status', null);
+
+                if ($lastStatus !== 'alert') {
+                    Mail::to('syahmiizzat550@gmail.com')->send(new AlertEmail($distance));
+                }
+
+                // Update last_status in cache
+                Cache::put('last_status', 'alert');
+            } else {
+                // Update last_status for other statuses (danger/warning/normal)
+                Cache::put('last_status', $status);
+            }
         }
     }
 
     return response()->json(['message' => 'Distance processed']);
 });
+
 
 
 
