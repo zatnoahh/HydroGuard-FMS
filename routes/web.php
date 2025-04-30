@@ -8,6 +8,8 @@ use App\Notifications\AlertNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Mail\AlertEmail;
 use Illuminate\Support\Facades\Mail;
+use App\Services\WhatsAppService;
+
 
 
 
@@ -36,10 +38,16 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'inde
 //     return 'Test Alert Email Sent!';
 // });
 
-Route::get('/test-alert-email', function () {
-    $testDistance = 35; // Example distance value
+// Route::get('/test-alert-email', function () {
+//     $testDistance = 35; // Example distance value
 
-    Mail::to('syahmiizzat550@gmail.com')->send(new AlertEmail($testDistance));
+//     Mail::to('syahmiizzat550@gmail.com')->send(new AlertEmail($testDistance));
 
-    return "Test Alert Email Sent!";
-});
+//     return "Test Alert Email Sent!";
+// });
+
+
+// Route::get('/test-whatsapp', function (WhatsAppService $whatsapp) {
+//     $whatsapp->sendMessage('+60105267369', '🚨 Test Alert: Water level reached ALERT threshold.');
+//     return 'WhatsApp message sent!';
+// });

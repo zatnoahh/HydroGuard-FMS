@@ -53,18 +53,29 @@ Route::post('/distance', function (Request $request) {
             Cache::put('last_saved_time', $currentTime, 60);
 
             // 👉 If status is 'alert' and save success, send email (only once until status change)
-            if ($saved && $status === 'alert') {
-                $lastStatus = Cache::get('last_status', null);
-
+            if ($status === 'alert' && $saved) {
+                $lastStatus = Cache::get('last_status');
+            
                 if ($lastStatus !== 'alert') {
+                    // ✅ Email
                     Mail::to('syahmiizzat550@gmail.com')->send(new AlertEmail($distance));
+            
+                    // ✅ WhatsApp
+                    $whatsApp = new \App\Services\WhatsAppService();
+                    $whatsApp->sendMessage('+60105267369', 
+                    "🚨 *FLOOD ALERT*\n\n" .
+                    "Current water level: *{$distance} cm*\n\n" .
+                    "⚠️ Please stay alert and take necessary precautions.\n" .
+                    "📍 Location: Sungai Ramal\n" .
+                    "⏰ Time: " . now()->format('Y-m-d H:i:s') . "\n\n" .
+                    "🔔 This message was sent automatically. Please do not reply."
+                );
+                            
+                    // ✅ Cache status update only after sending
+                    Cache::put('last_status', 'alert');
                 }
-
-                // Update last_status in cache
-                Cache::put('last_status', 'alert');
             } else {
-                // Update last_status for other statuses (danger/warning/normal)
-                Cache::put('last_status', $status);
+                Cache::put('last_status', $status); // danger, warning, or normal
             }
         }
     }
