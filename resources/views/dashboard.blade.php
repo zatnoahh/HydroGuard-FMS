@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container-fluid py-4">
+<div class="container py-5">
     <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
@@ -132,7 +132,7 @@
                     <h6 class="mb-0">Water Level Trend (Last 24 Hours)</h6>
                 </div>
                 <div class="card-body">
-                    <canvas id="waterLevelChart" height="300"></canvas>
+                    <canvas id="waterLevelChart" height="200"></canvas>
                 </div>
             </div>
         </div>
@@ -142,7 +142,7 @@
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
                     <h6 class="mb-0">Recent Alerts</h6>
-                    <span class="badge bg-danger">{{ $dangerLevels['danger'] ?? 0 }} Critical</span>
+                    <span class="badge bg-danger">{{ $dangerLevels['danger'] ?? 0 }} Danger</span>
                 </div>
                 <div class="card-body p-0">
                     <div class="list-group list-group-flush">
@@ -264,13 +264,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Water Level Trend Chart
     const waterCtx = document.getElementById('waterLevelChart').getContext('2d');
+
     new Chart(waterCtx, {
         type: 'line',
         data: {
-            labels: {!! $hourlyAverages->pluck('hour')->map(function($h) { return $h . ':00'; })->toJson() !!},
+            labels: @json($hourlyAverages->pluck('hour')->map(fn($h) => $h . ':00')),
             datasets: [{
                 label: 'Average Water Level (cm)',
-                data: {!! $hourlyAverages->pluck('avg_value')->toJson() !!},
+                data: @json($hourlyAverages->pluck('avg_value')),
                 borderColor: '#0d6efd',
                 backgroundColor: 'rgba(13, 110, 253, 0.1)',
                 tension: 0.3,

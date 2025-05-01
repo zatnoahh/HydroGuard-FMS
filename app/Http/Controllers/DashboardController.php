@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Distance;
 use App\Models\ReliefCenter;
 use App\Models\SafetyGuideline;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -33,11 +34,12 @@ class DashboardController extends Controller
                 HOUR(created_at) as hour, 
                 AVG(value) as avg_value,
                 COUNT(*) as readings_count
-            ')
-            ->whereDate('created_at', today())
-            ->groupBy('hour')
-            ->orderBy('hour')
-            ->get();
+                ')
+        ->where('created_at', '>=', now()->subDay())
+        ->groupBy(DB::raw('HOUR(created_at)'))
+        ->orderBy('hour')
+        ->get();
+        
         
         return view('dashboard', compact(
             'latestDistance',
