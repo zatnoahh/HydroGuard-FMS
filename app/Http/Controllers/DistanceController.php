@@ -15,10 +15,15 @@ class DistanceController extends Controller
     */
     public function index()
     {
-        $distances = Distance::where('value', '<=', 50.00)->paginate(10);
+        $distances = Distance::where('value', '<=', 50.00)
+                            ->orderBy('created_at', 'desc') // Order by the latest entries first
+                            ->paginate(10);
+
         $thresholds = Threshold::pluck('value', 'status'); // Fetch thresholds as ['status' => 'value']
+
         return view('distance.index', compact('distances', 'thresholds'));
     }
+
 
     /**
      * Show the form for creating a new resource.

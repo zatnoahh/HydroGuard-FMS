@@ -263,7 +263,46 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Water Level Trend Chart
+
     const waterCtx = document.getElementById('waterLevelChart').getContext('2d');
+
+    const gradientFillPlugin = {
+        id: 'customFill',
+        beforeDatasetsDraw(chart, args, pluginOptions) {
+            const {
+                ctx,
+                chartArea: {top, bottom, left, right},
+                scales: {x, y},
+                data
+            } = chart;
+
+            const dataset = chart.data.datasets[0];
+            const points = chart.getDatasetMeta(0).data;
+
+            if (!points.length) return;
+
+            ctx.save();
+            const gradient = ctx.createLinearGradient(0, top, 0, bottom);
+            gradient.addColorStop(0, 'rgba(13,110,253,0.4)');
+            gradient.addColorStop(1, 'rgba(13,110,253,0)');
+
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+
+            for (let i = 1; i < points.length; i++) {
+                ctx.lineTo(points[i].x, points[i].y);
+            }
+
+            // Close path to "visual" bottom (which is actually chart bottom)
+            ctx.lineTo(points[points.length - 1].x, bottom);
+            ctx.lineTo(points[0].x, bottom);
+            ctx.closePath();
+
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            ctx.restore();
+        }
+    };
 
     new Chart(waterCtx, {
         type: 'line',
@@ -273,9 +312,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 label: 'Average Water Level (cm)',
                 data: @json($hourlyAverages->pluck('avg_value')),
                 borderColor: '#0d6efd',
-                backgroundColor: 'rgba(13, 110, 253, 0.1)',
                 tension: 0.3,
-                fill: true
+                pointRadius: 4,
+                pointBackgroundColor: '#0d6efd',
+                fill: false // prevent default fill
             }]
         },
         options: {
@@ -291,15 +331,26 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             scales: {
                 y: {
-                    beginAtZero: true,
+                    reverse: true,
+                    beginAtZero: false,
                     title: {
                         display: true,
                         text: 'Water Level (cm)'
                     }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Hour of Day'
+                    }
                 }
             }
-        }
+        },
+        plugins: [gradientFillPlugin] // use custom plugin here
     });
+
+
+
 
     // Live updates for latest reading
     function fetchLatestDistance() {

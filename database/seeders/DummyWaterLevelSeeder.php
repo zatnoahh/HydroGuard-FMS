@@ -12,25 +12,44 @@ class DummyWaterLevelSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run()
+    public function run(): void
     {
-        // Remove previous data from last 24 hours for clean seeding
-        Distance::where('created_at', '>=', now()->subDay())->delete();
+        $now = Carbon::now()->startOfHour();
+        $start = $now->copy()->subHours(23); // 24 data points
 
-        // Insert fake readings for each of the last 24 hours
         for ($i = 0; $i < 24; $i++) {
-            $hour = Carbon::now()->subHours(24 - $i); // go back in time
+            $timestamp = $start->copy()->addHours($i);
 
-            // Insert 1–3 readings for each hour
-            $readingsCount = rand(1, 3);
-
-            for ($j = 0; $j < $readingsCount; $j++) {
-                Distance::create([
-                    'value' => rand(10, 60), // Random cm from 10 to 60
-                    'created_at' => $hour->copy()->addMinutes(rand(0, 59)),
-                    'updated_at' => now(),
-                ]);
+            // Morning: normal
+            if ($timestamp->hour >= 0 && $timestamp->hour <= 10) {
+                $value = rand(4000, 5500) / 100.0; // 40.00–55.00
             }
+            // Afternoon to evening: rising water
+            elseif ($timestamp->hour >= 11 && $timestamp->hour <= 18) {
+                $value = rand(1000, 3500) / 100.0; // 10.00–35.00
+            }
+            // Night: stabilizing
+            else {
+                $value = rand(3500, 5000) / 100.0; // 35.00–50.00
+            }
+
+            // Determine status
+            if ($value <= 15) {
+                $status = 'danger';
+            } elseif ($value <= 30) {
+                $status = 'alert';
+            } elseif ($value <= 55) {
+                $status = 'warning';
+            } else {
+                $status = 'safe';
+            }
+
+            Distance::create([
+                'value' => $value,
+                'status' => $status,
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ]);
         }
     }
 }
