@@ -29,7 +29,10 @@
                                     <h3 id="latest-distance" class="fw-bold mb-0">{{ $latestDistance->value ?? 'N/A' }} cm</h3>
                                 </div>
                                 <div class="bg-primary bg-opacity-10 p-3 rounded">
-                                    <i class="bi bi-droplet text-primary fs-4"></i>
+                                    <a href="{{ route('distance.index') }}" class="text-decoration-none">
+                                        <i class="bi bi-droplet text-primary fs-4"></i>
+                                    </a>
+                                    
                                 </div>
                             </div>
                             <div class="mt-3">
