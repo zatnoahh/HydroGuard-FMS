@@ -22,6 +22,8 @@ Route::resource('reliefCenters', App\Http\Controllers\ReliefCenterController::cl
 Route::resource('safety_guidelines', App\Http\Controllers\SafetyGuidelineController::class);
 Route::resource('threshold', App\Http\Controllers\ThresholdController::class);
 Route::get('/user/safety_guidelines', [SafetyGuidelineController::class, 'userIndex'])->name('user.safety_guidelines.index');
+Route::get('/calendar-data', [DistanceController::class, 'getCalendarData']);
+
 
 
 Auth::routes();

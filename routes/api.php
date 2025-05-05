@@ -3,14 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail; // Add this at the top if not added
+use Illuminate\Support\Facades\Notification;
 use App\Http\Controllers\DistanceController;
 use App\Notifications\AlertNotification;
-use Illuminate\Support\Facades\Notification;
 use App\Models\Distance;
 use App\Models\Threshold;
-use Illuminate\Support\Facades\Mail; // Add this at the top if not added
 use App\Mail\AlertEmail; // Import your new AlertEmail class
-
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -83,7 +82,25 @@ Route::post('/distance', function (Request $request) {
     return response()->json(['message' => 'Distance processed']);
 });
 
+Route::get('/calendar-distances', function () {
+    $distances = Distance::where('value', '<=', 50)->get();
 
+    $events = $distances->map(function ($distance) {
+        return [
+            'title' => "{$distance->status} - {$distance->value}cm",
+            'start' => $distance->created_at->toDateString(),
+            'allDay' => true,
+            'color' => match ($distance->status) {
+                'warning' => '#ffc107',
+                'alert' => '#fd7e14',
+                'danger' => '#dc3545',
+                default => '#6c757d'
+            }
+        ];
+    });
+
+    return response()->json($events);
+});
 
 
 Route::get('/latest-distance', function () {

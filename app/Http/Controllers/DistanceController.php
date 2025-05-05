@@ -93,4 +93,38 @@ class DistanceController extends Controller
         $distance->delete();
         return redirect()->route('distance.index')->with('success', 'Distance deleted successfully.');
     }
+
+    /**
+     * Calendar data for the calendar view.
+     */
+    public function getCalendarData()
+    {
+        // Group by date and status
+        $data = Distance::selectRaw('DATE(created_at) as date, status, COUNT(*) as total')
+            ->groupBy('date', 'status')
+            ->orderBy('date', 'asc')
+            ->get();
+
+        $events = [];
+
+        foreach ($data as $record) {
+            $color = match (strtolower($record->status)) {
+                'warning' => '#ffc107', // yellow
+                'alert' => '#fd7e14',   // orange
+                'danger' => '#dc3545',  // red
+                default => '#0d6efd'    // fallback (blue)
+            };
+
+            $events[] = [
+                'title' => ucfirst($record->status) . ' - ' . $record->total,
+                'start' => $record->date,
+                'allDay' => true,
+                'color' => $color
+            ];
+        }
+
+        return response()->json($events);
+    }
+
+
 }
