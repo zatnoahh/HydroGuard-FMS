@@ -201,84 +201,112 @@
     
     <!-- Danger Level History Section -->
     <div class="card shadow-sm">
-        <div class="card-header bg-danger text-white d-flex align-items-center">
-            <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
-            <h5 class="mb-0">Danger Level History</h5>
+        <div class="card-header bg-danger text-white d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+                <h5 class="mb-0">Danger Level History</h5>
+            </div>
+            
+            <!-- Status Filter Dropdown -->
+            <div class="dropdown">
+                <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" id="statusFilterDropdown" 
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-filter me-1"></i>
+                    @if(request('status'))
+                        {{ ucfirst(request('status')) }}
+                    @else
+                        All Statuses
+                    @endif
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="statusFilterDropdown">
+                    <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['status' => null]) }}">All Statuses</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['status' => 'warning']) }}">Warning</a></li>
+                    <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['status' => 'alert']) }}">Alert</a></li>
+                    <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['status' => 'danger']) }}">Danger</a></li>
+                </ul>
+            </div>
         </div>
+        
         <div class="card-body p-0">
-            <table class="table table-hover table-striped mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th style="width: 5%;">No</th>
-                        <th>Water Level (cm)</th>
-                        <th>Status</th>
-                        <th>Day/Date</th>
-                        <th>Time</th>
-                        <th style="width: 15%;" class="text-center">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($distances as $distance)
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0">
+                    <thead class="table-light">
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td><strong>{{ $distance->value }}</strong></td>
-                            <td>
-                                @php
-                                    $status = strtolower($distance->status);
-                                @endphp
-                                @if ($status === 'warning')
-                                    <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Warning</span>
-                                @elseif ($status === 'alert')
-                                    <span class="badge bg-orange text-white px-3 py-2 rounded-pill">Alert</span>
-                                @elseif ($status === 'danger')
-                                    <span class="badge bg-danger text-white px-3 py-2 rounded-pill">Danger</span>
-                                @else
-                                    <span class="badge bg-secondary text-white px-3 py-2 rounded-pill">{{ $distance->status }}</span>
-                                @endif
-                            </td>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <span class="fw-semibold">{{ $distance->created_at->format('l') }}</span>
-                                    <span class="text-muted">{{ $distance->created_at->format('d M Y') }}</span>
-                                </div>
-                            </td>
-                            <td>{{ $distance->created_at->format('h:i A') }}</td>
-                            <td class="text-center">
-                                <div class="d-flex justify-content-center gap-2">
-                                    <!-- View Button -->
-                                    <a href="{{ route('distance.show', $distance->id) }}" 
-                                        class="btn btn-primary btn-sm action-btn me-1" 
-                                        title="View">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
+                            <th style="width: 5%;">No</th>
+                            <th>Water Level (cm)</th>
+                            <th>Status</th>
+                            <th>Day/Date</th>
+                            <th>Time</th>
+                            <th style="width: 15%;" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($distances as $distance)
+                            <tr>
+                                <td>{{ ($distances->currentPage() - 1) * $distances->perPage() + $loop->iteration }}</td>
+                                <td><strong>{{ $distance->value }}</strong></td>
+                                <td>
+                                    @php
+                                        $status = strtolower($distance->status);
+                                    @endphp
+                                    @if ($status === 'warning')
+                                        <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Warning</span>
+                                    @elseif ($status === 'alert')
+                                        <span class="badge bg-orange text-white px-3 py-2 rounded-pill">Alert</span>
+                                    @elseif ($status === 'danger')
+                                        <span class="badge bg-danger text-white px-3 py-2 rounded-pill">Danger</span>
+                                    @else
+                                        <span class="badge bg-secondary text-white px-3 py-2 rounded-pill">{{ $distance->status }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-semibold">{{ $distance->created_at->format('l') }}</span>
+                                        <span class="text-muted">{{ $distance->created_at->format('d M Y') }}</span>
+                                    </div>
+                                </td>
+                                <td>{{ $distance->created_at->format('h:i A') }}</td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <!-- View Button -->
+                                        <a href="{{ route('distance.show', $distance->id) }}" 
+                                            class="btn btn-primary btn-sm action-btn me-1" 
+                                            title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
 
-                                    <!-- Delete Button -->
-                                    <form method="POST" 
-                                        action="{{ route('distance.destroy', $distance->id) }}" 
-                                        onsubmit="return confirm('Are you sure you want to delete this?')"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" 
-                                                class="btn btn-danger btn-sm action-btn" 
-                                                title="Delete">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="text-center text-muted py-4">No danger readings available yet.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                                        <!-- Delete Button -->
+                                        <form method="POST" 
+                                            action="{{ route('distance.destroy', $distance->id) }}" 
+                                            onsubmit="return confirm('Are you sure you want to delete this?')"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" 
+                                                    class="btn btn-danger btn-sm action-btn" 
+                                                    title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center text-muted py-4">
+                                    <i class="fas fa-tint-slash me-2"></i>
+                                    No readings found for this filter
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
 
             <!-- Pagination -->
             <div class="p-3 d-flex justify-content-center">
-                {{ $distances->links('pagination::bootstrap-4') }}
+                {{ $distances->appends(request()->query())->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </div>

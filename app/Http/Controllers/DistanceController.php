@@ -13,16 +13,25 @@ class DistanceController extends Controller
     /**
     * Display a listing of the resource.
     */
-    public function index()
+    public function index(Request $request)
     {
-        $distances = Distance::where('value', '<=', 50.00)
-                            ->orderBy('created_at', 'desc') // Order by the latest entries first
-                            ->paginate(10);
+        // Start the query
+        $query = Distance::query()->where('value', '<=', 50.00)->latest();
 
-        $thresholds = Threshold::pluck('value', 'status'); // Fetch thresholds as ['status' => 'value']
+        // Apply status filter if present
+        if ($request->filled('status')) {
+            $query->where('status', strtolower($request->status));
+        }
+
+        // Paginate the final query
+        $distances = $query->paginate(10);
+
+        // Fetch thresholds (for display or logic)
+        $thresholds = Threshold::pluck('value', 'status');
 
         return view('distance.index', compact('distances', 'thresholds'));
     }
+
 
 
     /**
