@@ -374,9 +374,38 @@
     .fc-day-today {
         background-color: rgba(13, 110, 253, 0.1) !important;
     }
+    
+    /* dashboard */
+    .alert-list {
+        max-height: 490px;
+        overflow-y: auto;
+    }
+    
+    .alert-item:hover {
+        background-color: rgba(220, 53, 69, 0.05) !important;
+    }
+    
+    .alert-icon {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hover-bg-light:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .bullet {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
   </style>
   <!-- End Style -->
-   
+
   </head>
   <!--end::Head-->
 

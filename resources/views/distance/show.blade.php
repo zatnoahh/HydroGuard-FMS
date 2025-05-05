@@ -6,11 +6,12 @@
         <div class="col-lg-8">
             <div class="card shadow-sm">
                 <div class="card-header bg-success text-white">
-                    <h4 class="mb-0"><i class="fas fa-info-circle me-2"></i>Sensor Detail</h4>
+                    <h4 class="mb-0"><i class="fas fa-info-circle me-2"></i>Water Level Detail</h4>
                 </div>
                 <div class="card-body">
                     <h6 class="text-muted">Details</h6>
                     <p class="card-text"><strong><i class="fas fa-ruler-vertical me-2"></i>Water Level:</strong> {{ $distance->value }} cm</p>
+                    <p class="card-text"><strong><i class="fas fa-tint me-2"></i>Status:</strong> {{ ucfirst($distance->status) }} </p>
                     <p class="card-text"><strong><i class="fas fa-calendar-alt me-2"></i>Recorded Date:</strong> {{ $distance->created_at->format('d.m.Y') }}</p>
                     <p class="card-text"><strong><i class="fas fa-clock me-2"></i>Recorded Time:</strong> {{ $distance->created_at->format('H:i:s') }}</p>
 

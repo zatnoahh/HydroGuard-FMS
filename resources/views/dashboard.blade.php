@@ -140,37 +140,72 @@
             </div>
         </div>
 
-        <!-- Recent Alerts -->
+        <!-- Recent Danger Alerts Card -->
         <div class="col-xl-4">
             <div class="card border-0 shadow-sm h-100">
-                <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
-                    <h6 class="mb-0">Recent Alerts</h6>
-                    <span class="badge bg-danger">{{ $dangerLevels['danger'] ?? 0 }} Danger</span>
+                <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center py-3">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-exclamation-octagon-fill text-danger me-2"></i>
+                        <h6 class="mb-0 fw-semibold">Danger Alerts</h6>
+                    </div>
+                    <div class="badge bg-danger bg-opacity-10 text-danger px-3 py-2">
+                        <span class="bullet bg-danger me-1"></span>
+                        {{ $dangerLevels['danger'] ?? 0 }} Active
+                    </div>
                 </div>
                 <div class="card-body p-0">
-                    <div class="list-group list-group-flush">
-                        @foreach($recentDistances->where('status', 'danger')->take(5) as $alert)
-                        <div class="list-group-item border-0 py-3">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <span class="fw-bold">{{ $alert->value }} cm</span>
-                                <small class="text-muted">{{ $alert->created_at->diffForHumans() }}</small>
+                    @php
+                        $dangerAlerts = $recentDistances->where('status', 'danger')->take(7);
+                    @endphp
+
+                    @if($dangerAlerts->count() > 0)
+                    <div class="alert-list">
+                        @foreach($dangerAlerts as $alert)
+                        <a href="{{ route('distance.show', $alert->id) }}" class="alert-item d-block text-decoration-none">
+                            <div class="d-flex align-items-start p-3 border-bottom hover-bg-light">
+                                <div class="alert-icon bg-danger bg-opacity-10 text-danger rounded-circle p-2 me-3">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="fw-semibold">Danger Water Level</span>
+                                        <span class="badge bg-danger rounded-pill">{{ $alert->value }} cm</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <small class="text-muted">
+                                            <i class="bi bi-clock-history me-1"></i>
+                                            {{ $alert->created_at->diffForHumans() }}
+                                        </small>
+                                        <small class="text-muted">
+                                            {{ $alert->created_at->format('M d') }}
+                                        </small>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="d-flex align-items-center">
-                                <span class="bullet bg-danger me-2"></span>
-                                <small>Danger level detected</small>
-                            </div>
-                        </div>
+                        </a>
                         @endforeach
-                        @if($recentDistances->where('status', 'danger')->count() === 0)
-                        <div class="list-group-item border-0 py-4 text-center text-muted">
-                            <i class="bi bi-check-circle fs-4 text-success mb-2"></i>
-                            <p class="mb-0">No critical alerts in recent readings</p>
-                        </div>
-                        @endif
                     </div>
+                    @else
+                    <div class="text-center py-5">
+                        <div class="mb-3">
+                            <i class="bi bi-check-circle-fill text-success fs-1"></i>
+                        </div>
+                        <h6 class="fw-semibold">No Danger Alerts</h6>
+                        <p class="text-muted small mb-0">All readings within safe parameters</p>
+                    </div>
+                    @endif
+                    
+                    @if($dangerAlerts->count() > 0)
+                    <div class="card-footer bg-white border-top text-center py-2">
+                        <a href="{{ route('distance.index', ['status' => 'danger']) }}" class="btn btn-sm btn-outline-danger">
+                            View All Alerts
+                        </a>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
+
     </div>
 
     <!-- Recent Readings Table -->
@@ -193,22 +228,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($recentDistances as $distance)
+                        @foreach($recentDistances->take(10) as $distance)
                         <tr>
                             <td class="fw-bold">{{ $distance->value }} cm</td>
                             <td>
                                 @if($distance->status === 'danger')
-                                <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-1 rounded-pill">
-                                    <span class="bullet bg-danger me-1"></span> Danger
-                                </span>
+                                <span class="badge bg-danger text-white px-3 py-2 rounded-pill" style="min-width: 80px; text-align: center;">Danger</span>
                                 @elseif($distance->status === 'alert')
-                                <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-1 rounded-pill">
-                                    <span class="bullet bg-warning me-1"></span> Alert
-                                </span>
+                                <span class="badge bg-orange text-white px-3 py-2 rounded-pill" style="min-width: 80px; text-align: center;">Alert</span>
                                 @else
-                                <span class="badge bg-info bg-opacity-10 text-info px-3 py-1 rounded-pill">
-                                    <span class="bullet bg-info me-1"></span> Warning
-                                </span>
+                                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill" style="min-width: 80px; text-align: center;">Warning</span>
                                 @endif
                             </td>
                             <td>

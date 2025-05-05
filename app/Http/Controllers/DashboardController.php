@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $totalGuidelines = SafetyGuideline::count();
         
         // Recent readings (last 10)
-        $recentDistances = Distance::latest()->take(10)->get();
+        $recentDistances = Distance::latest()->take(100)->get(); // <- changed from 10 to 100
         
         // Danger level statistics
         $dangerLevels = Distance::selectRaw('status, COUNT(*) as count')
@@ -39,7 +39,6 @@ class DashboardController extends Controller
         ->groupBy(DB::raw('HOUR(created_at)'))
         ->orderBy('hour')
         ->get();
-        
         
         return view('dashboard', compact(
             'latestDistance',
