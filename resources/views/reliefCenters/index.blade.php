@@ -83,7 +83,7 @@
         </div>
     </div>
 
-    <!-- Filter Section -->
+    <!-- Filter Section with Live Search -->
     <div class="card shadow-sm mb-3">
         <div class="card-body">
             <div class="row align-items-center">
@@ -92,13 +92,13 @@
                 </div>
                 <div class="col-md-6">
                     <div class="d-flex justify-content-end">
-                        <!-- Search Box -->
-                        <form method="GET" class="ms-2">
-                            <div class="input-group">
-                                <input type="text" name="search" class="form-control form-control-sm" placeholder="Search..." value="{{ request('search') }}">
-                                <button class="btn btn-primary btn-sm" type="submit"><i class="fas fa-search"></i></button>
-                            </div>
-                        </form>
+                        <!-- Live Search Box -->
+                        <div class="input-group">
+                            <input type="text" id="liveSearchInput" class="form-control form-control-sm" placeholder="Search..." value="{{ request('search') }}">
+                            <span class="input-group-text bg-primary text-white">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -175,4 +175,26 @@
         </div>
     </div>
 </div>
+
+<!-- JavaScript for Live Search -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('liveSearchInput');
+    const tableRows = document.querySelectorAll('table tbody tr');
+    
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        tableRows.forEach(row => {
+            const rowText = row.textContent.toLowerCase();
+            row.style.display = rowText.includes(searchTerm) ? '' : 'none';
+        });
+    });
+    
+    // Trigger search if there's an initial value
+    if (searchInput.value) {
+        searchInput.dispatchEvent(new Event('input'));
+    }
+});
+</script>
 @endsection
