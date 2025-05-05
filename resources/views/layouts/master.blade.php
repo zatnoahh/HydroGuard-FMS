@@ -333,6 +333,43 @@
           background-color: #6c757d;
           border-radius: 0 0 8px 8px;
       } */
+
+      /* Custom Calendar Styling */
+    #calendar {
+        background-color: white;
+        border-radius: 0.5rem;
+    }
+    
+    .fc-header-toolbar {
+        margin-bottom: 0.5rem;
+    }
+    
+    .fc-toolbar-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+    
+    .fc-daygrid-day-number {
+        color: #495057;
+    }
+    
+    .fc-daygrid-event {
+        font-size: 0.85rem;
+        padding: 2px 4px;
+    }
+    
+    .fc-event {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+    
+    .fc-event:hover {
+        opacity: 0.9;
+    }
+    
+    .fc-day-today {
+        background-color: rgba(13, 110, 253, 0.1) !important;
+    }
   </style>
 
   </head>
@@ -370,6 +407,12 @@
         <!--begin::Script-->
       <!-- Calender Script -->
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+        <!-- FullCalendar CSS -->
+        <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+
+        <!-- FullCalendar JS -->
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script
       src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"

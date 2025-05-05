@@ -311,25 +311,75 @@
         </div>
 
         <!-- Calendar Section -->
-        <div id="calendar" class="my-5"></div>
+        <div class="card shadow-sm border-0 mt-4">
+            <div class="card-header bg-white border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Flood Event Calendar</h5>
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button id="prev-btn" class="btn btn-outline-secondary">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button id="today-btn" class="btn btn-outline-primary">Today</button>
+                        <button id="next-btn" class="btn btn-outline-secondary">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <div id="calendar" class="fc"></div>
+            </div>
+        </div>
         
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                var calendarEl = document.getElementById('calendar');
-
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth',
-                    events: '/calendar-data', // The new route we added
-                    headerToolbar: {
-                        left: '',
-                        center: 'title',
-                        right: 'prev,next today'
-                    },
-                    eventColor: '#0d6efd', // Blue
-                });
-
-                calendar.render();
+            var calendarEl = document.getElementById('calendar');
+            
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: '/calendar-data',
+                headerToolbar: {
+                    left: '',
+                    center: 'title',
+                    right: ''
+                },
+                eventColor: '#0d6efd',
+                eventTextColor: '#fff',
+                height: 'auto',
+                eventDisplay: 'block',
+                eventTimeFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                },
+                
+                dayMaxEvents: false, // ✅ Optional: explicitly disable
+                eventDidMount: function(info) {
+                    new bootstrap.Tooltip(info.el, {
+                        title: info.event.extendedProps.description || 'No description',
+                        placement: 'top',
+                        trigger: 'hover',
+                        container: 'body'
+                    });
+                }
             });
+
+
+            calendar.render();
+            
+            // Custom navigation buttons
+            document.getElementById('prev-btn').addEventListener('click', function() {
+                calendar.prev();
+            });
+            
+            document.getElementById('next-btn').addEventListener('click', function() {
+                calendar.next();
+            });
+            
+            document.getElementById('today-btn').addEventListener('click', function() {
+                calendar.today();
+            });
+        });
         </script>
     </div>
 </div>
