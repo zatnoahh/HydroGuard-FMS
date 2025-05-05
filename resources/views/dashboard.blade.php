@@ -266,134 +266,131 @@
 
 <!-- Dashboard Scripts -->
 <script>
-// Initialize charts
-document.addEventListener('DOMContentLoaded', function() {
-    // Danger Level Distribution Chart
-    const dangerCtx = document.getElementById('dangerLevelChart').getContext('2d');
-    new Chart(dangerCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Danger', 'Alert', 'Warning'],
-            datasets: [{
-                data: [
-                    {{ $dangerLevels['danger'] ?? 0 }},
-                    {{ $dangerLevels['alert'] ?? 0 }},
-                    {{ $dangerLevels['warning'] ?? 0 }}
-                ],
-                backgroundColor: [
-                    '#dc3545',
-                    '#fd7e14',
-                    '#0dcaf0'
-                ],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            cutout: '70%',
-            plugins: { legend: { display: false } }
-        }
-    });
-
-    // Water Level Trend Chart
-
-    const waterCtx = document.getElementById('waterLevelChart').getContext('2d');
-
-    const gradientFillPlugin = {
-        id: 'customFill',
-        beforeDatasetsDraw(chart, args, pluginOptions) {
-            const {
-                ctx,
-                chartArea: {top, bottom, left, right},
-                scales: {x, y},
-                data
-            } = chart;
-
-            const dataset = chart.data.datasets[0];
-            const points = chart.getDatasetMeta(0).data;
-
-            if (!points.length) return;
-
-            ctx.save();
-            const gradient = ctx.createLinearGradient(0, top, 0, bottom);
-            gradient.addColorStop(0, 'rgba(13,110,253,0.4)');
-            gradient.addColorStop(1, 'rgba(13,110,253,0)');
-
-            ctx.beginPath();
-            ctx.moveTo(points[0].x, points[0].y);
-
-            for (let i = 1; i < points.length; i++) {
-                ctx.lineTo(points[i].x, points[i].y);
+    // Initialize charts
+    document.addEventListener('DOMContentLoaded', function() {
+        // Danger Level Distribution Chart
+        const dangerCtx = document.getElementById('dangerLevelChart').getContext('2d');
+        new Chart(dangerCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Danger', 'Alert', 'Warning'],
+                datasets: [{
+                    data: [
+                        {{ $dangerLevels['danger'] ?? 0 }},
+                        {{ $dangerLevels['alert'] ?? 0 }},
+                        {{ $dangerLevels['warning'] ?? 0 }}
+                    ],
+                    backgroundColor: [
+                        '#dc3545',
+                        '#fd7e14',
+                        '#0dcaf0'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                cutout: '70%',
+                plugins: { legend: { display: false } }
             }
+        });
 
-            // Close path to "visual" bottom (which is actually chart bottom)
-            ctx.lineTo(points[points.length - 1].x, bottom);
-            ctx.lineTo(points[0].x, bottom);
-            ctx.closePath();
+        // Water Level Trend Chart
 
-            ctx.fillStyle = gradient;
-            ctx.fill();
-            ctx.restore();
-        }
-    };
+        const waterCtx = document.getElementById('waterLevelChart').getContext('2d');
 
-    new Chart(waterCtx, {
-        type: 'line',
-        data: {
-            labels: @json($hourlyAverages->pluck('hour')->map(fn($h) => $h . ':00')),
-            datasets: [{
-                label: 'Average Water Level (cm)',
-                data: @json($hourlyAverages->pluck('avg_value')),
-                borderColor: '#0d6efd',
-                tension: 0.3,
-                pointRadius: 4,
-                pointBackgroundColor: '#0d6efd',
-                fill: false // prevent default fill
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return context.parsed.y.toFixed(2) + ' cm';
+        const gradientFillPlugin = {
+            id: 'customFill',
+            beforeDatasetsDraw(chart, args, pluginOptions) {
+                const {
+                    ctx,
+                    chartArea: {top, bottom, left, right},
+                    scales: {x, y},
+                    data
+                } = chart;
+
+                const dataset = chart.data.datasets[0];
+                const points = chart.getDatasetMeta(0).data;
+
+                if (!points.length) return;
+
+                ctx.save();
+                const gradient = ctx.createLinearGradient(0, top, 0, bottom);
+                gradient.addColorStop(0, 'rgba(13,110,253,0.4)');
+                gradient.addColorStop(1, 'rgba(13,110,253,0)');
+
+                ctx.beginPath();
+                ctx.moveTo(points[0].x, points[0].y);
+
+                for (let i = 1; i < points.length; i++) {
+                    ctx.lineTo(points[i].x, points[i].y);
+                }
+
+                // Close path to "visual" bottom (which is actually chart bottom)
+                ctx.lineTo(points[points.length - 1].x, bottom);
+                ctx.lineTo(points[0].x, bottom);
+                ctx.closePath();
+
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                ctx.restore();
+            }
+        };
+
+        new Chart(waterCtx, {
+            type: 'line',
+            data: {
+                labels: @json($hourlyAverages->pluck('hour')->map(fn($h) => $h . ':00')),
+                datasets: [{
+                    label: 'Average Water Level (cm)',
+                    data: @json($hourlyAverages->pluck('avg_value')),
+                    borderColor: '#0d6efd',
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#0d6efd',
+                    fill: false // prevent default fill
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y.toFixed(2) + ' cm';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        reverse: true,
+                        beginAtZero: false,
+                        title: {
+                            display: true,
+                            text: 'Water Level (cm)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Hour of Day'
                         }
                     }
                 }
             },
-            scales: {
-                y: {
-                    reverse: true,
-                    beginAtZero: false,
-                    title: {
-                        display: true,
-                        text: 'Water Level (cm)'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Hour of Day'
-                    }
-                }
-            }
-        },
-        plugins: [gradientFillPlugin] // use custom plugin here
+            plugins: [gradientFillPlugin] // use custom plugin here
+        });
+
+        // Live updates for latest reading
+        function fetchLatestDistance() {
+            axios.get('/api/latest-distance')
+                .then(response => {
+                    document.getElementById('latest-distance').innerText = response.data.value + ' cm';
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        
+        setInterval(fetchLatestDistance, 5000);
     });
-
-
-
-
-    // Live updates for latest reading
-    function fetchLatestDistance() {
-        axios.get('/api/latest-distance')
-            .then(response => {
-                document.getElementById('latest-distance').innerText = response.data.value + ' cm';
-            })
-            .catch(error => console.error('Error:', error));
-    }
-    
-    setInterval(fetchLatestDistance, 5000);
-});
 </script>
 @endsection
