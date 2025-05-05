@@ -23,7 +23,11 @@ class ReliefCenterController extends Controller
             $reliefCenters = ReliefCenter::paginate(10);
         }
 
-        return view('reliefCenters.index', compact('reliefCenters'));
+        $totalcenters = ReliefCenter::count();
+        $totalcapacity = ReliefCenter::sum('capacity');
+        $averagecapacity = ReliefCenter::avg('capacity');
+
+        return view('reliefCenters.index', compact('reliefCenters', 'totalcenters', 'totalcapacity', 'averagecapacity'));
     }
 
     /**

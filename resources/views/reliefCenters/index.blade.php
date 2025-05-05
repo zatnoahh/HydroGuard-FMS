@@ -22,7 +22,7 @@
                         <div class="col ms-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Total Centers</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($reliefCenters) }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ ($totalcenters) }}</div>
                         </div>
                         <div class="col-auto me-2">
                             <i class="fas fa-building fa-2x text-gray-300"></i>
@@ -38,7 +38,7 @@
                         <div class="col ms-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Total Capacity</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $reliefCenters->sum('capacity') }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalcapacity }}</div>
                         </div>
                         <div class="col-auto me-2">
                             <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -54,7 +54,7 @@
                         <div class="col ms-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                 Average Capacity</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ round($reliefCenters->avg('capacity'), 1) }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format($averagecapacity, 0) }}</div>
                         </div>
                         <div class="col-auto me-2">
                             <i class="fas fa-chart-bar fa-2x text-gray-300"></i>
@@ -71,7 +71,7 @@
                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                     Centers with High Capacity</div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    {{ $reliefCenters->where('capacity', '>', 100)->count() }}
+                    {{ DB::table('relief_centers')->where('capacity', '>', 100)->count() }}
                     </div>
                 </div>
                 <div class="col-auto me-2">
@@ -123,7 +123,7 @@
                 <tbody>
                     @forelse($reliefCenters as $reliefCenter)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $loop->iteration + ($reliefCenters->currentPage() - 1) * $reliefCenters->perPage() }}</td>
                             <td>
                                 <a href="{{ route('reliefCenters.show', $reliefCenter->id) }}" class="font-weight-bold text-dark">
                                     {{ $reliefCenter->name }}
@@ -167,13 +167,19 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-center text-muted py-4">No relief centers available.</td>
+                            <td colspan="7" class="text-center text-muted py-4">No relief centers available.</td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
+        <!-- Pagination -->
+        <div class="mt-3 d-flex justify-content-center">
+            {{ $reliefCenters->links('pagination::bootstrap-4') }}
+        </div>
     </div>
+
+    
 </div>
 
 <!-- JavaScript for Live Search -->
