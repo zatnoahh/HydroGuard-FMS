@@ -29,7 +29,7 @@
                                 <i class="fas fa-home fa-3x"></i>
                             </div>
                         </div>
-                        <h4 class="mb-1">{{ $reliefCenter->location }}</h4>
+                        <h4 class="mb-1">{{ $reliefCenter->name }}</h4>
                         <p class="text-muted">{{ $reliefCenter->service }}</p>
                     </div>
 

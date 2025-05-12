@@ -150,7 +150,7 @@
                     </div>
                     <div class="badge bg-danger bg-opacity-10 text-danger px-3 py-2">
                         <span class="bullet bg-danger me-1"></span>
-                        {{ $dangerLevels['danger'] ?? 0 }} Active
+                        {{ $dangerLevels['danger'] ?? 0 }} Alerts
                     </div>
                 </div>
                 <div class="card-body p-0">

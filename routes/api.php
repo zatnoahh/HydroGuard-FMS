@@ -43,7 +43,7 @@ Route::post('/distance', function (Request $request) {
         $currentTime = now()->timestamp;
 
         if ($currentTime - $lastSavedTime >= 60) {
-            // 👉 Save distance to DB
+            //  Save distance to DB
             $saved = Distance::create([
                 'value' => $distance,
                 'status' => $status
@@ -51,7 +51,7 @@ Route::post('/distance', function (Request $request) {
 
             Cache::put('last_saved_time', $currentTime, 60);
 
-            // 👉 If status is 'alert' and save success, send email (only once until status change)
+            //  If status is 'alert' and save success, send email (only once until status change)
             if ($status === 'alert' && $saved) {
                 $lastStatus = Cache::get('last_status');
             
