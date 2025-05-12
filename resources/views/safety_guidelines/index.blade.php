@@ -8,9 +8,11 @@
             <h1 class="h3 fw-bold mb-0"><i class="bi bi-shield-check text-primary me-2"></i> Safety Guidelines</h1>
             <small class="text-muted">Manage safety instructions for all users.</small>
         </div>
+        @can('isAdmin')
         <a href="{{ route('safety_guidelines.create') }}" class="btn btn-primary">
             <i class="bi bi-plus-circle me-1"></i> Add Safety Guideline
         </a>
+        @endcan
     </div>
 
     <!-- Filter Section -->
@@ -103,6 +105,7 @@
                                             <i class="fas fa-eye"></i>
                                         </a>
 
+                                        @can('isAdmin')
                                         <!-- Edit Button -->
                                         <a href="{{ route('safety_guidelines.edit', $safetyGuideline->id) }}" 
                                         class="btn btn-primary btn-sm action-btn me-1" 
@@ -123,6 +126,7 @@
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

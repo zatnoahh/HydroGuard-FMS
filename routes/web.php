@@ -10,46 +10,26 @@ use App\Mail\AlertEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Services\WhatsAppService;
 
-
-
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('distance', App\Http\Controllers\DistanceController::class);
-Route::resource('reliefCenters', App\Http\Controllers\ReliefCenterController::class);
-Route::resource('safety_guidelines', App\Http\Controllers\SafetyGuidelineController::class);
-Route::resource('threshold', App\Http\Controllers\ThresholdController::class);
-Route::get('/user/safety_guidelines', [SafetyGuidelineController::class, 'userIndex'])->name('user.safety_guidelines.index');
-Route::get('/calendar-data', [DistanceController::class, 'getCalendarData']);
-
-
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::resource('distance', App\Http\Controllers\DistanceController::class);
+    Route::resource('reliefCenters', App\Http\Controllers\ReliefCenterController::class);
+    Route::resource('safety_guidelines', App\Http\Controllers\SafetyGuidelineController::class);
+    Route::resource('threshold', App\Http\Controllers\ThresholdController::class);
 
-// Route::get('/test-alert-email', function () {
-//     $fakeDistance = 35; // Assume water level = 35 cm (example)
+    Route::get('/user/safety_guidelines', [SafetyGuidelineController::class, 'userIndex'])->name('user.safety_guidelines.index');
+    Route::get('/calendar-data', [DistanceController::class, 'getCalendarData']);
 
-//     Notification::route('mail', 'syahmiizzat550@gmail.com')
-//         ->notify(new AlertNotification($fakeDistance));
+    //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
-//     return 'Test Alert Email Sent!';
-// });
+});
 
-// Route::get('/test-alert-email', function () {
-//     $testDistance = 35; // Example distance value
-
-//     Mail::to('syahmiizzat550@gmail.com')->send(new AlertEmail($testDistance));
-
-//     return "Test Alert Email Sent!";
-// });
-
-
-// Route::get('/test-whatsapp', function (WhatsAppService $whatsapp) {
-//     $whatsapp->sendMessage('+60105267369', '🚨 Test Alert: Water level reached ALERT threshold.');
-//     return 'WhatsApp message sent!';
-// });
+Route::middleware(['auth', 'can:admin-access'])->group(function () {
+     Route::get('/threshold', [App\Http\Controllers\ThresholdController::class, 'index'])->name('threshold.index');
+});

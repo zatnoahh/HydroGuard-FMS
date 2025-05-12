@@ -88,6 +88,7 @@
                         <a href="{{ route('distance.index') }}" class="btn btn-outline-secondary">
                             <i class="fas fa-arrow-left me-2"></i> Back to List
                         </a>
+                        @can('isAdmin')
                         <div class="btn-group">
                             <form action="{{ route('distance.destroy', $distance->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this reading?')">
                                 @csrf
@@ -97,6 +98,7 @@
                                 </button>
                             </form>
                         </div>
+                        @endcan
                     </div>
                 </div>
             </div>

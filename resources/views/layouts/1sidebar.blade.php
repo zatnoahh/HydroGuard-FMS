@@ -37,6 +37,7 @@
           </a>
         </li>
 
+        @can('isAdmin')
         <!-- Safety Guideline -->
         <li class="nav-item">
           <a href="{{ route('safety_guidelines.index') }}" class="nav-link">
@@ -52,12 +53,19 @@
             <p>Manage Threshold</p>
           </a>
         </li>
+        @endcan
 
           <!-- User Safety Guidelines -->
         <li class="nav-item">
           <a href="{{ route('user.safety_guidelines.index') }}" class="nav-link">
             <i class="nav-icon bi bi-signpost"></i>
-            <p>User Safety Guidelines</p>
+            <p>
+              @if(auth()->user()->role == 'user')
+          Safety Guidelines
+              @else
+          User Safety Guidelines
+              @endif
+            </p>
           </a>
         </li>
 

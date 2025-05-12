@@ -48,7 +48,7 @@ class SafetyGuidelineController extends Controller
             });
         }
         
-        $safetyGuidelines = $query->paginate(10);
+        $safetyGuidelines = $query->paginate(10); // Use paginate() to enable pagination
 
         return view('user.safety_guidelines.index', compact('safetyGuidelines'));
     }
@@ -58,6 +58,10 @@ class SafetyGuidelineController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('admin-access')) {
+            return redirect()->route('safety_guidelines.index')->with('error', 'You do not have permission to access this page.');
+        }
+
         return view('safety_guidelines.create');
     }
 
@@ -89,6 +93,9 @@ class SafetyGuidelineController extends Controller
      */
     public function edit(SafetyGuideline $safetyGuideline)
     {
+        if (!auth()->user()->can('admin-access')) {
+            return redirect()->route('safety_guidelines.index')->with('error', 'You do not have permission to access this page.');
+        }
         return view('safety_guidelines.edit', compact('safetyGuideline'));
     }
 

@@ -98,6 +98,7 @@
                         <a href="{{ route('reliefCenters.index') }}" class="btn btn-outline-secondary">
                             <i class="fas fa-arrow-left me-2"></i> Back to List
                         </a>
+                        @can('isAdmin')
                         <div class="btn-group">
                             <a href="{{ route('reliefCenters.edit', $reliefCenter->id) }}" class="btn btn-outline-primary">
                                 <i class="fas fa-edit me-2"></i> Edit
@@ -110,6 +111,7 @@
                                 </button>
                             </form>
                         </div>
+                        @endcan
                     </div>
                 </div>
             </div>

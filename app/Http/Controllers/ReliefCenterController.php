@@ -35,6 +35,9 @@ class ReliefCenterController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('admin-access')) {
+            return redirect()->route('reliefCenters.index')->with('error', 'You do not have permission to access this page.');
+        }
         return view('reliefCenters.create');
     }
 
@@ -66,6 +69,9 @@ class ReliefCenterController extends Controller
      */
     public function edit(ReliefCenter $reliefCenter)
     {
+        if (!auth()->user()->can('admin-access')) {
+            return redirect()->route('reliefCenters.index')->with('error', 'You do not have permission to access this page.');
+        }
         return view('reliefCenters.edit', compact('reliefCenter'));
     }
 

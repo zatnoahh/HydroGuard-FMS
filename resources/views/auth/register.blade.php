@@ -207,6 +207,24 @@
                         @enderror
                     </div>
 
+                    <!-- Phone Number Field -->
+                    <div class="mb-4">
+                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent"><i class="fas fa-phone text-primary"></i></span>
+                            <input id="phone_number" type="text"
+                                   class="form-control input-with-icon @error('phone_number') is-invalid @enderror"
+                                   name="phone_number" value="{{ old('phone_number') }}" 
+                                   required
+                                   placeholder="Enter your phone number">
+                        </div>
+                        @error('phone_number')
+                            <div class="text-danger small mt-1">
+                                <i class="fas fa-exclamation-circle me-1"></i>{{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
                     <!-- Password Field -->
                     <div class="mb-4">
                         <label for="password" class="form-label">Password</label>

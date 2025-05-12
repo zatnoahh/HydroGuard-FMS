@@ -66,9 +66,11 @@
                         <div class="bg-light rounded-3 p-4 h-100">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h6 class="text-uppercase text-muted small fw-bold">Threshold Levels</h6>
-                                <a href="{{ route('threshold.index') }}" class="btn btn-primary btn-sm text-white">
+                                @can('isAdmin')
+                                    <a href="{{ route('threshold.index') }}" class="btn btn-primary btn-sm text-white">
                                     <i class="bi bi-gear me-1"></i> Manage Thresholds
-                                </a>
+                                    </a>
+                                @endcan
                             </div>
                             
                             <div class="threshold-levels mb-4">
@@ -198,33 +200,61 @@
         </div>
 
         <!-- Danger Level History Section -->
-        <div class="card shadow-sm">
-            <div class="card-header bg-danger text-white d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                    <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
-                    <h5 class="mb-0">Danger Level History</h5>
-                </div>
-                
-                <!-- Status Filter Dropdown -->
-                <div class="dropdown">
-                    <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" id="statusFilterDropdown" 
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-filter me-1"></i>
-                        @if(request('status'))
-                            {{ ucfirst(request('status')) }}
-                        @else
-                            All Statuses
-                        @endif
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="statusFilterDropdown">
-                        <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['status' => null]) }}">All Statuses</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['status' => 'warning']) }}">Warning</a></li>
-                        <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['status' => 'alert']) }}">Alert</a></li>
-                        <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['status' => 'danger']) }}">Danger</a></li>
-                    </ul>
-                </div>
+<div class="card shadow-sm border-danger">
+    <div class="card-header bg-danger text-white d-flex align-items-center justify-content-between flex-wrap py-2">
+        <div class="d-flex align-items-center mb-2 mb-sm-0">
+            <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+            <h5 class="mb-0 fs-6 fw-semibold">DANGER LEVEL HISTORY</h5>
+        </div>
+        
+        <div class="d-flex flex-wrap align-items-center gap-2">
+            <!-- Compact Filter Dropdown -->
+            <div class="dropdown">
+                <button class="btn btn-xs btn-outline-light dropdown-toggle py-1 px-2 d-flex align-items-center" 
+                        type="button" id="statusFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-filter me-1 fs-6"></i>
+                    <span class="fs-7">
+                        @if(request('status')) {{ ucfirst(request('status')) }} @else Status @endif
+                    </span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="statusFilterDropdown">
+                    <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['status' => null]) }}">All Statuses</a></li>
+                    <li><hr class="dropdown-divider my-1"></li>
+                    <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['status' => 'warning']) }}">Warning</a></li>
+                    <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['status' => 'alert']) }}">Alert</a></li>
+                    <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['status' => 'danger']) }}">Danger</a></li>
+                </ul>
             </div>
+
+            <!-- Compact Filter Form -->
+            <form method="GET" action="{{ route('distance.index') }}" class="d-flex flex-wrap align-items-center gap-2">
+                <div class="input-group input-group-xs" style="width: 120px;">
+                    <span class="input-group-text bg-dark text-white border-dark py-1 px-2 fs-7">Date</span>
+                    <input type="date" name="date" id="date" value="{{ request('date') }}" 
+                           class="form-control form-control-xs py-1 px-2 fs-7">
+                </div>
+
+                <div class="input-group input-group-xs" style="width: 135px;">
+                    <span class="input-group-text bg-dark text-white border-dark py-1 px-2 fs-7">Week</span>
+                    <input type="week" name="week" id="week" value="{{ request('week') }}" 
+                           class="form-control form-control-xs py-1 px-2 fs-7">
+                </div>
+
+                <div class="btn-group" role="group">
+                    <button type="submit" class="btn btn-light btn-xs py-1 px-2 fs-7">
+                        <i class="fas fa-search me-1"></i> Filter
+                    </button>
+                    
+                    @if(request()->hasAny(['date', 'week', 'status']))
+                    <a href="{{ route('distance.index') }}" class="btn btn-outline-light btn-xs py-1 px-2 fs-7">
+                        <i class="fas fa-undo me-1"></i> Reset
+                    </a>
+                    @endif
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
             
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -274,6 +304,7 @@
                                                 <i class="fas fa-eye"></i>
                                             </a>
 
+                                            @can('isAdmin')
                                             <!-- Delete Button -->
                                             <form method="POST" 
                                                 action="{{ route('distance.destroy', $distance->id) }}" 
@@ -287,6 +318,7 @@
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

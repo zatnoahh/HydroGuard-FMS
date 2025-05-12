@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Distance;
 use App\Models\Threshold;
+use Carbon\Carbon;
 
 class DistanceController extends Controller
 {   
@@ -15,18 +16,33 @@ class DistanceController extends Controller
     */
     public function index(Request $request)
     {
-        // Start the query
         $query = Distance::query()->where('value', '<=', 50.00)->latest();
 
-        // Apply status filter if present
+        // Filter by status
         if ($request->filled('status')) {
             $query->where('status', strtolower($request->status));
         }
 
-        // Paginate the final query
-        $distances = $query->paginate(10);
+        // Filter by specific date
+        if ($request->filled('date')) {
+            $query->whereDate('created_at', $request->date);
+        }
 
-        // Fetch thresholds (for display or logic)
+        // Filter by week (expects format: YYYY-Www, e.g., 2025-W19)
+        if ($request->filled('week')) {
+            try {
+                $week = $request->week;
+                [$year, $weekNumber] = explode('-W', $week);
+                $startOfWeek = Carbon::now()->setISODate($year, $weekNumber)->startOfWeek();
+                $endOfWeek = (clone $startOfWeek)->endOfWeek();
+
+                $query->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
+            } catch (\Exception $e) {
+                // Invalid format, ignore
+            }
+        }
+
+        $distances = $query->paginate(10);
         $thresholds = Threshold::pluck('value', 'status');
 
         return view('distance.index', compact('distances', 'thresholds'));
@@ -39,6 +55,10 @@ class DistanceController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('admin-access')) {
+            return redirect()->route('distance.index')->with('error', 'You do not have permission to access this page.');
+        }
+
         return view('distance.create');
     }
 
@@ -69,6 +89,9 @@ class DistanceController extends Controller
      */
     public function edit(Distance $distance)
     {
+        if (!auth()->user()->can('admin-access')) {
+            return redirect()->route('distance.index')->with('error', 'You do not have permission to access this page.');
+        }
         return view('distance.edit', compact('distance'));
     }
 

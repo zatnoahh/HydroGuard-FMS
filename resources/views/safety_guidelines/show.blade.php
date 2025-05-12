@@ -104,9 +104,10 @@
 
                     <!-- Action Buttons -->
                     <div class="d-flex justify-content-between pt-3 border-top">
-                        <a href="{{ route('safety_guidelines.index') }}" class="btn btn-outline-secondary">
-                            <i class="fas fa-arrow-left me-2"></i> Back to Guidelines
+                        <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i> Back to List
                         </a>
+                        @can('isAdmin')
                         <div class="btn-group">
                             <a href="{{ route('safety_guidelines.edit', $safetyGuideline->id) }}" class="btn btn-outline-primary">
                                 <i class="fas fa-edit me-2"></i> Edit
@@ -119,6 +120,7 @@
                                 </button>
                             </form>
                         </div>
+                        @endcan
                     </div>
                 </div>
             </div>
