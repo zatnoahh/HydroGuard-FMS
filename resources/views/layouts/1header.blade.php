@@ -49,15 +49,22 @@
                     <!-- Dropdown Menu -->
                     <div class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="navbarDropdown">
                         <h6 class="dropdown-header">Account</h6>
-                        <a class="dropdown-item" href="#">
+
+                        <!-- ✅ Profile link -->
+                        <a class="dropdown-item" href="{{ route('profile.show') }}">
                             <i class="bi bi-person-circle me-2"></i> Profile
                         </a>
+
+                        <!-- You can add this later if you build a settings page -->
                         <a class="dropdown-item" href="#">
                             <i class="bi bi-gear me-2"></i> Settings
                         </a>
+
                         <div class="dropdown-divider"></div>
+
+                        <!-- ✅ Logout -->
                         <a class="dropdown-item text-danger" href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="bi bi-box-arrow-right me-2"></i> Logout
                         </a>
 

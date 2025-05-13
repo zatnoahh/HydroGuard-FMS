@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Notification;
 use App\Mail\AlertEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Services\WhatsAppService;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,8 +31,16 @@ Route::middleware(['auth'])->group(function () {
     //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
+    // Profile routes
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
 });
 
 Route::middleware(['auth', 'can:admin-access'])->group(function () {
-     Route::get('/threshold', [App\Http\Controllers\ThresholdController::class, 'index'])->name('threshold.index');
+    Route::get('/threshold', [App\Http\Controllers\ThresholdController::class, 'index'])->name('threshold.index');
+    Route::resource('users', UserController::class);
 });
+
+

@@ -72,7 +72,7 @@
         <!-- Admin Only -->
         @can('isAdmin')
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{ route('users.index') }}" class="nav-link">
             <i class="nav-icon bi bi-shield-lock"></i>
             <p>Users</p>
           </a>
