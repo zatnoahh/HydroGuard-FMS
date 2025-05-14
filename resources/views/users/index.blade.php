@@ -74,11 +74,11 @@
                                     </a>
                                     
                                     <!-- Edit Button -->
-                                    <a href="{{ route('users.edit', $user->id) }}" 
+                                    <!-- <a href="{{ route('users.edit', $user->id) }}" 
                                     class="btn btn-primary btn-sm action-btn me-1" 
                                     title="Edit">
                                         <i class="fas fa-pencil-alt"></i>
-                                    </a>
+                                    </a> -->
 
                                     @can('isAdmin')
                                     <!-- Delete Button -->
