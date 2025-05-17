@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(ReliefCenterSeeder::class);
         // $this->call(SafetyGuidelineSeeder::class);
         $this->call(DummyWaterLevelSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }

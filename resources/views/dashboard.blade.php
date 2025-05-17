@@ -194,15 +194,14 @@
                         <p class="text-muted small mb-0">All readings within safe parameters</p>
                     </div>
                     @endif
-                    
-                    @if($dangerAlerts->count() > 0)
-                    <div class="card-footer bg-white border-top text-center py-2">
-                        <a href="{{ route('distance.index', ['status' => 'danger']) }}" class="btn btn-sm btn-outline-danger">
-                            View All Alerts
-                        </a>
-                    </div>
-                    @endif
                 </div>
+                @if($dangerAlerts->count() > 0)
+                <div class="card-footer bg-white border-top text-center py-2">
+                    <a href="{{ route('distance.index', ['status' => 'danger']) }}" class="btn btn-sm btn-outline-danger">
+                        View All Alerts
+                    </a>
+                </div>
+                @endif
             </div>
         </div>
 
