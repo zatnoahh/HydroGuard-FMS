@@ -56,6 +56,7 @@
         @endcan
 
           <!-- User Safety Guidelines -->
+           @can('isUser')
         <li class="nav-item">
           <a href="{{ route('user.safety_guidelines.index') }}" class="nav-link">
             <i class="nav-icon bi bi-signpost"></i>
@@ -68,6 +69,7 @@
             </p>
           </a>
         </li>
+        @endcan
 
         <!-- Admin Only -->
         @can('isAdmin')

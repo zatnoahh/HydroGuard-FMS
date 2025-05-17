@@ -207,55 +207,55 @@
             <h5 class="mb-0 fs-6 fw-semibold">DANGER LEVEL HISTORY</h5>
         </div>
         
-        <div class="d-flex flex-wrap align-items-center gap-2">
+        <div class="ms-auto d-flex flex-wrap align-items-center gap-2">
             <!-- Compact Filter Dropdown -->
             <div class="dropdown">
-                <button class="btn btn-xs btn-outline-light dropdown-toggle py-1 px-2 d-flex align-items-center" 
-                        type="button" id="statusFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-filter me-1 fs-6"></i>
-                    <span class="fs-7">
-                        @if(request('status')) {{ ucfirst(request('status')) }} @else Status @endif
-                    </span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="statusFilterDropdown">
-                    <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['status' => null]) }}">All Statuses</a></li>
-                    <li><hr class="dropdown-divider my-1"></li>
-                    <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['status' => 'warning']) }}">Warning</a></li>
-                    <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['status' => 'alert']) }}">Alert</a></li>
-                    <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['status' => 'danger']) }}">Danger</a></li>
-                </ul>
+            <button class="btn btn-xs btn-outline-light dropdown-toggle py-1 px-2 d-flex align-items-center" 
+                type="button" id="statusFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-filter me-1 fs-6"></i>
+                <span class="fs-7">
+                @if(request('status')) {{ ucfirst(request('status')) }} @else Status @endif
+                </span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="statusFilterDropdown">
+                <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['status' => null]) }}">All Statuses</a></li>
+                <li><hr class="dropdown-divider my-1"></li>
+                <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['status' => 'warning']) }}">Warning</a></li>
+                <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['status' => 'alert']) }}">Alert</a></li>
+                <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['status' => 'danger']) }}">Danger</a></li>
+            </ul>
             </div>
 
             <!-- Compact Filter Form -->
             <form method="GET" action="{{ route('distance.index') }}" class="d-flex flex-wrap align-items-center gap-2">
-                <div class="input-group input-group-xs" style="width: 120px;">
-                    <span class="input-group-text bg-dark text-white border-dark py-1 px-2 fs-7">Date</span>
-                    <input type="date" name="date" id="date" value="{{ request('date') }}" 
-                           class="form-control form-control-xs py-1 px-2 fs-7">
-                </div>
+            <div class="input-group input-group-xs" style="width: 160px;">
+                <span class="input-group-text bg-dark text-white border-dark py-1 px-2 fs-7">Date</span>
+                <input type="date" name="date" id="date" value="{{ request('date') }}" 
+                   class="form-control form-control-xs py-1 px-2 fs-7">
+            </div>
 
-                <div class="input-group input-group-xs" style="width: 135px;">
-                    <span class="input-group-text bg-dark text-white border-dark py-1 px-2 fs-7">Week</span>
-                    <input type="week" name="week" id="week" value="{{ request('week') }}" 
-                           class="form-control form-control-xs py-1 px-2 fs-7">
-                </div>
+            <div class="input-group input-group-xs" style="width: 155px;">
+                <span class="input-group-text bg-dark text-white border-dark py-1 px-2 fs-7">Week</span>
+                <input type="week" name="week" id="week" value="{{ request('week') }}" 
+                   class="form-control form-control-xs py-1 px-2 fs-7">
+            </div>
 
-                <div class="btn-group" role="group">
-                    <button type="submit" class="btn btn-light btn-xs py-1 px-2 fs-7">
-                        <i class="fas fa-search me-1"></i> Filter
-                    </button>
-                    
-                    @if(request()->hasAny(['date', 'week', 'status']))
-                    <a href="{{ route('distance.index') }}" class="btn btn-outline-light btn-xs py-1 px-2 fs-7">
-                        <i class="fas fa-undo me-1"></i> Reset
-                    </a>
-                    @endif
-                </div>
+            <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-light btn-xs py-1 px-2 fs-7">
+                <i class="fas fa-search me-1"></i> Filter
+                </button>
+                
+                @if(request()->hasAny(['date', 'week', 'status']))
+                <a href="{{ route('distance.index') }}" class="btn btn-outline-light btn-xs py-1 px-2 fs-7">
+                <i class="fas fa-undo me-1"></i> Reset
+                </a>
+                @endif
+            </div>
             </form>
         </div>
     </div>
 </div>
-            
+            <div>
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover table-striped mb-0">
