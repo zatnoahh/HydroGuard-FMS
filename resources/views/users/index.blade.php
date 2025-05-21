@@ -47,39 +47,39 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($users as $user)
+                    @php
+                        $filteredUsers = $users->filter(function($user) {
+                            return $user->role !== 'admin';
+                        });
+                    @endphp
+                    @forelse($filteredUsers as $user)
                         <tr>
                             <td>{{ $loop->iteration + ($users->currentPage() - 1) * $users->perPage() }}</td>
                             <td class="font-weight-bold">{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
                                 <span class="badge 
-                                    @if($user->role === 'admin') bg-danger
-                                    @elseif($user->role === 'editor') bg-warning text-dark
+                                    @if($user->role === 'admin') bg-danger       
                                     @else bg-primary
                                     @endif">
-                                    {{ ucfirst($user->role) }}
+                                    {{ $user->role === 'user' ? 'Citizen' : ucfirst($user->role) }}
                                 </span>
                             </td>
                             <td>{{ $user->phone_number ?? 'N/A' }}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-2">
-
-                                
                                     <!-- View Button -->
                                     <a href="{{ route('users.show', $user->id) }}" 
                                     class="btn btn-primary btn-sm action-btn me-1" 
                                     title="View">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    
                                     <!-- Edit Button -->
                                     <!-- <a href="{{ route('users.edit', $user->id) }}" 
                                     class="btn btn-primary btn-sm action-btn me-1" 
                                     title="Edit">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a> -->
-
                                     @can('isAdmin')
                                     <!-- Delete Button -->
                                     <form method="POST" 
